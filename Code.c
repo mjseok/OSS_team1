@@ -28,10 +28,10 @@ int main()
     {
     read:
         p=fopen("score.txt","a+");
-    printf("\nEnter name of player1: ");
-    scanf("%s",u1);
-    fprintf(p,"\n%s",u1);
-    printf("Enter name of player2: ");
+        printf("\nEnter name of player1: ");
+   	scanf("%s",u1);
+   	fprintf(p,"\n%s",u1);
+    	printf("Enter name of player2: ");
     scanf("%s",u2);
     fprintf(p,"\t%s",u2);
     fclose(p);
@@ -126,29 +126,46 @@ int main()
         printf("\n\nShould have typed 1 to play the game!\nHope to see you back soon!\n\n");
         getch();
     }
+
 }
-int checkforwin()
+
+int checkHorizontal()
 {
     if(a[0]==a[1] && a[1]==a[2])
         return 1;
     else if(a[3]==a[4] && a[4]==a[5])
         return 1;
     else if(a[6]==a[7] && a[7]==a[8])
-        return 1;
-    else if(a[0]==a[3] && a[3]==a[6])
-        return 1;
-    else if(a[1]==a[4] && a[4]==a[7])
-        return 1;
-    else if(a[2]==a[5] && a[5]==a[8])
-        return 1;
-    else if(a[0]==a[4] && a[4]==a[8])
-        return 1;
-    else if(a[2]==a[4] && a[4]==a[6])
-        return 1;
-    else if(a[0]!='1' && a[1]!='2' && a[2]!='3' && a[3]!='4' && a[4]!='5' && a[5]!='6' && a[6]!='7' && a[7]!='8' && a[8]!='9')
-        return 0;
+        return 1; 
     else
         return -1;
+}
+int checkVertical()
+{
+    if(a[0]==a[3] && a[3]==a[6])
+        return 1;
+    else if(a[1]==a[4] && a[4]==a[7])
+	return 1;
+    else if(a[2]==a[5] && a[5]==a[8])
+	return 1;
+    else
+	return -1;
+} 
+int checkDiagonal()
+{
+    if(a[0]==a[4] && a[4]==a[8])
+        return 1;
+    else if(a[2]==a[4] && a[4]==a[6])
+	return 1;
+    else
+	return -1;
+}
+
+int checkDraw()    
+{
+
+    else if(a[0]!='1' && a[1]!='2' && a[2]!='3' && a[3]!='4' && a[4]!='5' && a[5]!='6' && a[6]!='7' && a[7]!='8' && a[8]!='9')
+        return 0;
 }
 
 void board()
