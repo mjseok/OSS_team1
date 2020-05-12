@@ -7,9 +7,10 @@ Author:- Mishal Shah
 char player1_symbol, player2_symbol; 
 char board_symbol[9]={'1','2','3','4','5','6','7','8','9'};
 char player1_name[50], player2_name[50]; 
-void board();
-void rules();
+void showBoard();
+void showRule();
 int checkforwin();
+void chooseSymbol(); 
 int main()
 {
     FILE *leaderboard;
@@ -21,7 +22,7 @@ int main()
     char symbol,re;
     char start,dec;
     int menu_option;
-    rules();
+    showRule();
     printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
     scanf("%d",&s);
     if(menu_option==1)
@@ -41,11 +42,11 @@ int main()
         goto read;
     }
     else
-        decision();
+        chooseSymbol();
 
 
     system("color fc");
-    board();
+    showBoard();
 
     do
     {
@@ -80,7 +81,7 @@ int main()
 
         game_state=checkforwin();
         current_player++;
-        board();
+        showBoard();
     }while(game_state == -1);
 
 
@@ -151,7 +152,7 @@ int checkforwin()
         return -1;
 }
 
-void board()
+void showBoard()
 {
     int i;
 
@@ -170,7 +171,7 @@ void board()
         printf("  %c |  %c | %c\n",board_symbol[6],board_symbol[7],board_symbol[8]);
         printf("    |    |    \n");
     }
-void rules()
+void showRule()
 {
     char link;
     printf("\tTic-Tac-Toe\n\n");
@@ -187,7 +188,7 @@ void rules()
     }
 
 }
-int decision()
+int chooseSymbol()
 {
     char dec;
         deci:
