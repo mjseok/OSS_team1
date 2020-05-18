@@ -13,7 +13,7 @@ int checkforwin();
 int main()
 {
     FILE *p;
-    p=fopen("score.txt","a+");
+    p=fopen("leaderboard.txt","a+");
     fclose(p);
     system("color 09");
     int player=1;
@@ -27,7 +27,7 @@ int main()
     if(s==1)
     {
     read:
-        p=fopen("score.txt","a+");
+        p=fopen("leaderboard.txt","a+");
     printf("\nEnter name of player1: ");
     scanf("%s",u1);
     fprintf(p,"\n%s",u1);
@@ -84,7 +84,7 @@ int main()
     }while(score == -1);
 
 
-    p=fopen("score.txt","a+");
+    p=fopen("leaderboard.txt","a+");
     if(score==1)
     {
 
@@ -108,7 +108,7 @@ int main()
         printf("\n\n");
         printf("\tLEADERBOARD\n\n");
         char c;
-        p=fopen("score.txt","r");
+        p=fopen("leaderboard.txt","r");
         while((c=getc(p))!=EOF)
         {
             printf("%c",c);
