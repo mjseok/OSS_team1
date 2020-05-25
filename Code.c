@@ -49,7 +49,6 @@ int main()
 
     do
     {
-
         player=((player%2)?1:2);
         if(player==1)
         printf("%s Type any digit from 1-9 to fill your response:- ",u1);
@@ -77,13 +76,15 @@ int main()
             a[8]=symbol;
         else
             {printf("Wrong Selection\n");player--;}
-	score=checkHorizontal();
+
+	score=checkHorizontal();	
         score=checkVertical();
        	score=checkDiagonal();
 	score=checkDraw();
 
         player++;
         board();
+   
     }while(score == 0);
 
 
@@ -229,4 +230,3 @@ int decision()
             }
         }
 }
-
