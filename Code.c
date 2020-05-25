@@ -77,11 +77,14 @@ int main()
             a[8]=symbol;
         else
             {printf("Wrong Selection\n");player--;}
+	score=checkHorizontal();
+        score=checkVertical();
+       	score=checkDiagonal();
+	score=checkDraw();
 
-        score=checkforwin();
         player++;
         board();
-    }while(score == -1);
+    }while(score == 0);
 
 
     p=fopen("score.txt","a+");
@@ -128,7 +131,6 @@ int main()
     }
 
 }
-
 int checkHorizontal()
 {
     if(a[0]==a[1] && a[1]==a[2])
@@ -138,7 +140,7 @@ int checkHorizontal()
     else if(a[6]==a[7] && a[7]==a[8])
         return 1; 
     else
-        return -1;
+        return 0;
 }
 int checkVertical()
 {
@@ -149,7 +151,7 @@ int checkVertical()
     else if(a[2]==a[5] && a[5]==a[8])
 	return 1;
     else
-	return -1;
+	return 0;
 } 
 int checkDiagonal()
 {
@@ -158,14 +160,14 @@ int checkDiagonal()
     else if(a[2]==a[4] && a[4]==a[6])
 	return 1;
     else
-	return -1;
+	return 0;
 }
 
 int checkDraw()    
 {
 
     else if(a[0]!='1' && a[1]!='2' && a[2]!='3' && a[3]!='4' && a[4]!='5' && a[5]!='6' && a[6]!='7' && a[7]!='8' && a[8]!='9')
-        return 0;
+        return 1;
 }
 
 void board()
@@ -174,8 +176,6 @@ void board()
 
     system("cls");
     printf("\tTic-Tac-Toe\n\n");
-        printf("\n\n");
-        printf("%s:- (%c)\n%s:-  (%c)\n\n\n",u1,x,u2,o);
 
         printf("  %c |  %c | %c\n",a[0],a[1],a[2]);
         printf("    |    |    \n");
@@ -229,3 +229,4 @@ int decision()
             }
         }
 }
+
