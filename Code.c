@@ -2,7 +2,7 @@
 This code has been compiled in Code::Blocks 16.01 IDE on Windows 10
 Author:- Mishal Shah
 */
-<<<<<<< HEAD
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -15,6 +15,7 @@ char player1_name[50], player2_name[50];
 void board();
 void rules();
 int checkforwin();
+void decision();
 
 int main()
 {
@@ -30,7 +31,7 @@ int main()
 
     rules();
     printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
-    scanf("%d",&s);
+    scanf("%d",&menu_option);
     if(menu_option==1)
     {
     read:
@@ -96,17 +97,17 @@ int main()
     {
 
         if(current_player==2)
-        {printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(p,"\t%s",player1_name);
+        {printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(leaderboard,"\t%s",player1_name);
         getch();}
         else
             {
-				printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(p,"\t%s",player2_name);
+				printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(leaderboard,"\t%s",player2_name);
 				getch();
             }
         fclose(leaderboard);
     }
     else
-        printf("\n\nGame Draws!\n\n");fprintf(p,"\t%s","DRAW");
+        printf("\n\nGame Draws!\n\n");fprintf(leaderboard,"\t%s","DRAW");
         getch();
     }
     if(menu_option==2)
@@ -169,7 +170,7 @@ void board(void)
     printf("\tTic-Tac-Toe\n\n");
 
         printf("\n\n");
-        printf("%s:- (%c)\n%s:-  (%c)\n\n\n",player1_name,player1_symbole,player2_name,player2_symbol);
+        printf("%s:- (%c)\n%s:-  (%c)\n\n\n",player1_name,player1_symbol,player2_name,player2_symbol);
 
         printf("  %c |  %c | %c\n",board_symbol[0],board_symbol[1],board_symbol[2]);
         printf("    |    |    \n");
