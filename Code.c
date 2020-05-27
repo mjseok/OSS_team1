@@ -2,193 +2,217 @@
 This code has been compiled in Code::Blocks 16.01 IDE on Windows 10
 Author:- Mishal Shah
 */
-#include<stdio.h>
-#include<string.h>
-char x,o;
-char a[9]={'1','2','3','4','5','6','7','8','9'};
-char u1[50],u2[50];
-void board();
-void rules();
-int checkforwin();
-int main()
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#pragma warning (disable:4996)
+#define _CRT_SECURE_NO_WARNINGS
+char player1_symbol, player2_symbol; 
+char board_symbol[9]={'1','2','3','4','5','6','7','8','9'};
+char player1_name[50], player2_name[50]; 
+void showBoard(void);
+void showRule(void);
+int checkforwin(void);
+void chooseSymbol(void); 
+
+int main(void)
 {
-    FILE *p;
-    p=fopen("score.txt","a+");
-    fclose(p);
+    FILE *leaderboard;
+    leaderboard=fopen("leaderboard.txt","a+");
+    fclose(leaderboard);
     system("color 09");
-    int player=1;
-    int choice,score=-1;
+    int current_player=1;
+    int board_position[100],game_state=-1;
     char symbol,re;
     char start,dec;
-    int s;
-    rules();
+    int menu_option;
+
+    showRule();
+
     printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
-    scanf("%d",&s);
-    if(s==1)
+    scanf("%d",&menu_option);
+    if(menu_option==1)
+
     {
-    read:
-        p=fopen("score.txt","a+");
-        printf("\nEnter name of player1: ");
-   	scanf("%s",u1);
-   	fprintf(p,"\n%s",u1);
+read:
+
+	leaderboard=fopen("leaderboard.txt","a+");
+    	printf("\nEnter name of player1: ");
+    	scanf("%s",player1_name);
+    	fprintf(leaderboard,"\n%s",player1_name);
     	printf("Enter name of player2: ");
-    scanf("%s",u2);
-    fprintf(p,"\t%s",u2);
-    fclose(p);
-    if(!strcmp(u1,u2))
-    {
-        printf("Enter names of different players!\n\n");
-        goto read;
-    }
-    else
-        decision();
+    	scanf("%s",player2_name);
+    	fprintf(leaderboard,"\t%s",player2_name);
+    	fclose(leaderboard);
+    	if(!strcmp(player1_name, player2_name))
+    	{
+	        printf("Enter names of different players!\n\n");
+        	goto read;
+    	}
+   	 else
+
+        	chooseSymbol();
 
 
-    system("color fc");
-    board();
+   	 system("color fc");
+   	 showBoard();
 
-    do
-    {
-        player=((player%2)?1:2);
-        if(player==1)
-        printf("%s Type any digit from 1-9 to fill your response:- ",u1);
-        else
-            printf("%s Type any digit from 1-9 to fill your response:- ",u2);
-        scanf("%d",&choice);
-        symbol=((player==1)?x:o);
-        if(choice==1 && a[0]=='1')
-            a[0]=symbol;
-        else if(choice==2 && a[1]=='2')
-            a[1]=symbol;
-        else if(choice==3 && a[2]=='3')
-            a[2]=symbol;
-        else if(choice==4 && a[3]=='4')
-            a[3]=symbol;
-        else if(choice==5 && a[4]=='5')
-            a[4]=symbol;
-        else if(choice==6 && a[5]=='6')
-            a[5]=symbol;
-        else if(choice==7 && a[6]=='7')
-            a[6]=symbol;
-        else if(choice==8 && a[7]=='8')
-            a[7]=symbol;
-        else if(choice==9 && a[8]=='9')
-            a[8]=symbol;
-        else
-            {printf("Wrong Selection\n");player--;}
 
-	score=checkHorizontal();	
-        score=checkVertical();
-       	score=checkDiagonal();
-	score=checkDraw();
+    	do
+    	{
+        	printf("%d\n", current_player);
+        	current_player=((current_player%2)?1:2);
+        	if(current_player==1)
+        		printf("%s Type any digit from 1-9 to fill your response:- ",player1_name);
 
-        player++;
-        board();
+        	else
+            		printf("%s Type any digit from 1-9 to fill your response:- ",player2_name);
+        	scanf("%d",&board_position);
+        	symbol=((current_player==1)? player1_symbol:player2_symbol);
+        	if(board_position==1 && board_symbol[0]=='1')
+            		board_symbol[0]=symbol;
+        	else if(board_position==2 && board_symbol[1]=='2')
+            		board_symbol[1]=symbol;
+        	else if(board_position==3 && board_symbol[2]=='3')
+            		board_symbol[2]=symbol;
+        	else if(board_position==4 && board_symbol[3]=='4')
+            		board_symbol[3]=symbol;
+        	else if(board_position==5 && board_symbol[4]=='5')
+            		board_symbol[4]=symbol;
+        	else if(board_position==6 && board_symbol[5]=='6')
+            		board_symbol[5]=symbol;
+        	else if(board_position==7 && board_symbol[6]=='7')
+            		board_symbol[6]=symbol;
+        	else if(board_position==8 && board_symbol[7]=='8')
+           	 	board_symbol[7]=symbol;
+        	else if(board_position==9 && board_symbol[8]=='9')
+            		board_symbol[8]=symbol;
+        	else
+		{
+			printf("Wrong Selection\n");
+			current_player--;
+		}
+
+       	 	score=checkVertical();
+       		score=checkDiagonal();
+		score=checkDraw();
    
-    }while(score == 0);
+        	current_player++;
+        	showBoard();
+    	}while(game_state == 0);
 
 
-    p=fopen("score.txt","a+");
-    if(score==1)
+    leaderboard=fopen("score.txt","a+");
+    if(game_state==1)
     {
 
-        if(player==2)
-        {printf("\n\nPlayer1 %s Wins!\n\n",u1);fprintf(p,"\t%s",u1);
-        getch();}
+        if(current_player==2)
+        {
+		printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(leaderboard,"\t%s",player1_name);
+        	getch();
+	}
         else
-            {printf("\n\nPlayer2 %s Wins!\n\n",u2);fprintf(p,"\t%s",u2);
-        getch();
-            }
-        fclose(p);
+        {
+		printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(leaderboard,"\t%s",player2_name);
+		getch();
+        }
+        fclose(leaderboard);
     }
     else
-        printf("\n\nGame Draws!\n\n");fprintf(p,"\t%s","DRAW");
+        printf("\n\nGame Draws!\n\n");fprintf(leaderboard,"\t%s","DRAW");
         getch();
     }
-    if(s==2)
+    if(menu_option==2)
     {
         int cho;
         system("cls");
         printf("\n\n");
         printf("\tLEADERBOARD\n\n");
-        char c;
-        p=fopen("score.txt","r");
-        while((c=getc(p))!=EOF)
+
+		
+	char c='\0';
+        leaderboard=fopen("leaderboard.txt","r");
+		
+        while(c != EOF)
         {
-            printf("%c",c);
+
+		c = (char)(getc(leaderboard));
+            	printf("%c",c);
         }
-        fclose(p);
+        fclose(leaderboard);
         printf("\n\nPress 1 to start the game:- ");
         scanf("%d",&cho);
         if(cho==1)
             goto read;
         else
-            getch();
+            getchar();
     }
     else
     {
         printf("\n\nShould have typed 1 to play the game!\nHope to see you back soon!\n\n");
-        getch();
+        getchar();
     }
 
 }
-int checkHorizontal()
+int checkHorizontal(void)
 {
-    if(a[0]==a[1] && a[1]==a[2])
+    if(board_symbol[0]==board_symbol[1] && board_symbol[1]==board_symbol[2])
         return 1;
-    else if(a[3]==a[4] && a[4]==a[5])
+    else if(board_symbol[3]==board_symbol[4] && board_symbol[4]==board_symbol[5])
         return 1;
-    else if(a[6]==a[7] && a[7]==a[8])
+    else if(board_symbol[6]==board_symbol[7] && board_symbol[7]==board_symbol[8])
         return 1; 
     else
         return 0;
 }
 int checkVertical()
 {
-    if(a[0]==a[3] && a[3]==a[6])
+    if(board_symbol[0]==board_symbol[3] && board_symbol[3]==board_symbol[6])
         return 1;
-    else if(a[1]==a[4] && a[4]==a[7])
+    else if(board_symbol[1]==board_symbol[4] && board_symbol[4]==board_symbol[7])
 	return 1;
-    else if(a[2]==a[5] && a[5]==a[8])
+    else if(board_symbol[2]==board_symbol[5] &&board_symbol[5]==board_symbol[8])
 	return 1;
     else
 	return 0;
 } 
 int checkDiagonal()
 {
-    if(a[0]==a[4] && a[4]==a[8])
+    if(board_symbol[0]==board_symbol[4] && board_symbol[4]==board_symbol[8])
         return 1;
-    else if(a[2]==a[4] && a[4]==a[6])
-	return 1;
+    else if(board_symbol[2]==board_symbol[4] && board_symbol[4]==board_symbol[6])
+        return 1;
     else
-	return 0;
+        return 0;
 }
-
-int checkDraw()    
+int checkDraw()
 {
-
-    else if(a[0]!='1' && a[1]!='2' && a[2]!='3' && a[3]!='4' && a[4]!='5' && a[5]!='6' && a[6]!='7' && a[7]!='8' && a[8]!='9')
+    if(board_symbol[0]!='1' && board_symbol[1]!='2' && board_symbol[2]!='3' && board_symbol[3]!='4' && board_symbol[4]!='5' && board_symbol[5]!='6' && board_symbol[6]!='7' && board_symbol[7]!='8' && board_symbol[8]!='9')
         return 1;
 }
 
-void board()
+
+void showBoard(void)
 {
-    int i;
+	system("cls");
+    	printf("\tTic-Tac-Toe\n\n");
 
-    system("cls");
-    printf("\tTic-Tac-Toe\n\n");
+        printf("\n\n");
+        printf("%s:- (%c)\n%s:-  (%c)\n\n\n",player1_name,player1_symbol,player2_name,player2_symbol);
 
-        printf("  %c |  %c | %c\n",a[0],a[1],a[2]);
+        printf("  %c |  %c | %c\n",board_symbol[0],board_symbol[1],board_symbol[2]);
         printf("    |    |    \n");
         printf("----|----|----\n");
         printf("    |    |    \n");
-        printf("  %c |  %c | %c\n",a[3],a[4],a[5]);
+        printf("  %c |  %c | %c\n",board_symbol[3],board_symbol[4],board_symbol[5]);
         printf("    |    |    \n");
         printf("----|----|----\n");
-        printf("  %c |  %c | %c\n",a[6],a[7],a[8]);
+        printf("  %c |  %c | %c\n",board_symbol[6],board_symbol[7],board_symbol[8]);
         printf("    |    |    \n");
     }
-void rules()
+void showRule(void)
 {
     char link;
     printf("\tTic-Tac-Toe\n\n");
@@ -205,28 +229,33 @@ void rules()
     }
 
 }
-int decision()
+
+int chooseSymbol(void)
 {
     char dec;
-        deci:
-        printf("\n\nPlayer1 %s choose the X or 0:",u1);
-        dec=getchar();
-        scanf("%c",&dec);
-        {
+deci:
+    printf("\n\nPlayer1 %s choose the X or 0:", player1_name);
+    dec=getchar();
+    scanf("%c",&dec);
+    {
+        
             if(dec=='X' || dec=='x')
             {
-                x='X';
-                o='0';
+                player1_symbol='X';
+                player2_symbol='0';
             }
             else if(dec=='0')
             {
-                x='0';
-                o='X';
+                player1_symbol='0';
+                player2_symbol='X';
             }
             else
             {
                 printf("Please enter either X or 0 only \n\n");
                 goto deci;
             }
+
         }
-}
+        
+    }
+
