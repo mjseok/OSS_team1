@@ -12,12 +12,12 @@ Author:- Mishal Shah
 char player1_symbol, player2_symbol; 
 char board_symbol[9]={'1','2','3','4','5','6','7','8','9'};
 char player1_name[50], player2_name[50]; 
-void board();
-void rules();
-int checkforwin();
-void decision();
+void showBoard(void);
+void showRule(void);
+int checkforwin(void);
+void chooseSymbol(void); 
 
-int main()
+int main(void)
 {
     FILE *leaderboard;
     leaderboard=fopen("leaderboard.txt","a+");
@@ -29,32 +29,36 @@ int main()
     char start,dec;
     int menu_option;
 
-    rules();
+    showRule();
+
     printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
     scanf("%d",&menu_option);
     if(menu_option==1)
     {
-    read:
+read:
 
-     leaderboard=fopen("leaderboard.txt","a+");
-    printf("\nEnter name of player1: ");
-    scanf("%s",player1_name);
-    fprintf(leaderboard,"\n%s",player1_name);
-    printf("Enter name of player2: ");
-    scanf("%s",player2_name);
-    fprintf(leaderboard,"\t%s",player2_name);
-    fclose(leaderboard);
-    if(!strcmp(player1_name, player2_name))
-    {
-        printf("Enter names of different players!\n\n");
-        goto read;
-    }
+	leaderboard=fopen("leaderboard.txt","a+");
+    	printf("\nEnter name of player1: ");
+    	scanf("%s",player1_name);
+    	fprintf(leaderboard,"\n%s",player1_name);
+    	printf("Enter name of player2: ");
+    	scanf("%s",player2_name);
+    	fprintf(leaderboard,"\t%s",player2_name);
+    	fclose(leaderboard);
+    	if(!strcmp(player1_name, player2_name))
+    	{
+	        printf("Enter names of different players!\n\n");
+        	goto read;
+    	}
     else
-        decision();
-	
-	system("color fc");
-	board();
-	
+
+        chooseSymbol();
+
+
+    system("color fc");
+    showBoard();
+
+
     do
     {
         printf("%d\n", current_player);
@@ -88,7 +92,7 @@ int main()
 
         game_state=checkforwin();
         current_player++;
-        board();
+        showBoard();
     }while(game_state == -1);
 
 
@@ -164,7 +168,8 @@ int checkforwin(void)
         return -1;
 }
 
-void board(void)
+
+void showBoard(void)
 {
     system("cls");
     printf("\tTic-Tac-Toe\n\n");
@@ -182,7 +187,7 @@ void board(void)
         printf("  %c |  %c | %c\n",board_symbol[6],board_symbol[7],board_symbol[8]);
         printf("    |    |    \n");
     }
-void rules()
+void showRule(void)
 {
     char link;
     printf("\tTic-Tac-Toe\n\n");
@@ -199,7 +204,8 @@ void rules()
     }
 
 }
-void decision(void)
+
+int chooseSymbol(void)
 {
     char dec;
 deci:
