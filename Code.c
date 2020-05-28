@@ -38,7 +38,7 @@ int main(void)
     if(menu_option==1)
     {
 read:
-	menu_option=1
+	menu_option=1;
 	leaderboard=fopen("leaderboard.txt","a+");
     	printf("\nEnter name of player1: ");
     	scanf("%s",player1_name);
