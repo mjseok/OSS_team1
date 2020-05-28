@@ -30,15 +30,22 @@ int main(void)
 	int game_state = -1;
 	char symbol;
 	int menu_option;
-
+	
+	const int someoneWin =1;
+	const int keepGoing = 0;
+	
+	const int gotoGame =1;
+	const int gotoLeaderBoard = 2;
+	const int quitGame = 3;
+	
 	showRule();
 
 	printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
 	scanf("%d", &menu_option);
-	if (menu_option == 1)
+	if (menu_option == gotoGame)
 	{
 	read:
-		menu_option = 1;
+		menu_option = gotoGame;
 		leaderboard = fopen("leaderboard.txt", "a+");
 		printf("\nEnter name of player1: ");
 		scanf("%s", player1_name);
@@ -90,21 +97,21 @@ int main(void)
 				current_player--;
 			}
 			game_state = checkVertical();
-			if (game_state == 1)
+			if (game_state )
 			{
 				current_player++;
 				showBoard();
 				break;
 			}
 			game_state = checkHorizontal();
-			if (game_state == 1)
+			if (game_state )
 			{
 				current_player++;
 				showBoard();
 				break;
 			}
 			game_state = checkDiagonal();
-			if (game_state == 1)
+			if (game_state )
 			{
 				current_player++;
 				showBoard();
@@ -113,11 +120,11 @@ int main(void)
 			game_state=checkDraw();
 			current_player++;
 			showBoard();
-		} while (game_state == 0);
+		} while (game_state == keepGoing);
  
 
 		leaderboard = fopen("leaderboard.txt", "a+");
-		if (game_state == 1)
+		if (game_state == someoneWin)
 		{
 			if (current_player == 2)
 			{
@@ -138,7 +145,7 @@ int main(void)
 			fclose(leaderboard);
 		}
 	}
-	else if (menu_option == 2)
+	else if (menu_option == gotoLeaderBoard)
 	{
 	menu2:
 		system("cls");
@@ -155,13 +162,11 @@ int main(void)
 		fclose(leaderboard);
 		printf("\n\nPress 1 to start the game:- ");
 		scanf("%d", &cho);
-		if (cho == 1)
+		if (cho == gotoGame)
 			goto read;
 
 		else
-
 		{
-
 			printf("\n\nShould have typed 1 to play the game!\nHope to see you back soon!\n\n");
 			getchar();
 		}
@@ -172,10 +177,10 @@ int main(void)
 		printf("잘못된 입력입니다!");
 		printf("게임을 시작하려면 1을, 리더보드를 보려면 2를 입력하세요");
 		scanf("%d", &menu_option);
-		if (menu_option == 1) {
+		if (menu_option == gotoGame) {
 			goto read;
 		}
-		else if (menu_option == 2) {
+		else if (menu_option == gotoLeaderBoard) {
 			goto menu2;
 		}
 		else {
@@ -185,43 +190,54 @@ int main(void)
 }
 int checkHorizontal(void)
 {
-
+	const int horizontal_complete =1;
+	const int horizontal_fail = 0;
+	
 	if (board_symbol[0] == board_symbol[1] && board_symbol[1] == board_symbol[2])
-		return 1;
+		return horizontal_complete;
 	else if (board_symbol[3] == board_symbol[4] && board_symbol[4] == board_symbol[5])
-		return 1;
+		return horizontal_complete;
 	else if (board_symbol[6] == board_symbol[7] && board_symbol[7] == board_symbol[8])
-		return 1;
+		return horizontal_complete;
 	else
-		return 0;
+		return horizontal_fail;
 }
 
 int checkVertical(void)
 {
+	const int vertical_complete =1;
+	const int vertical_fail = 0;
+	
 	if (board_symbol[0] == board_symbol[3] && board_symbol[3] == board_symbol[6])
-		return 1;
+		return vertical_complete;
 	else if (board_symbol[1] == board_symbol[4] && board_symbol[4] == board_symbol[7])
-		return 1;
+		return vertical_complete;
 	else if (board_symbol[2] == board_symbol[5] && board_symbol[5] == board_symbol[8])
-		return 1;
+		return vertical_complete;
 	else
-		return 0;
+		return vertical_fail;
 }
 int checkDiagonal(void)
 {
+	const int diagonal_complete =1;
+	const int diagonal_fail = 0;
+	
 	if (board_symbol[0] == board_symbol[4] && board_symbol[4] == board_symbol[8])
-		return 1;
+		return diagonal_complete;
 	else if (board_symbol[2] == board_symbol[4] && board_symbol[4] == board_symbol[6])
-		return 1;
+		return diagonal_complete;
 	else
-		return 0;
+		return diagonal_fail;
 }
 int checkDraw(void)
 {
+	const int draw_complete = -1;
+	const int draw_fail = 0;
+	
 	if (board_symbol[0] != '1' && board_symbol[1] != '2' && board_symbol[2] != '3' && board_symbol[3] != '4' && board_symbol[4] != '5' && board_symbol[5] != '6' && board_symbol[6] != '7' && board_symbol[7] != '8' && board_symbol[8] != '9')
-		return -1;
+		return draw_complete;
 	else
-		return 0;
+		return draw_fail;
 }
 
 void showBoard(void)
