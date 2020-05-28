@@ -14,7 +14,10 @@ char board_symbol[9]={'1','2','3','4','5','6','7','8','9'};
 char player1_name[50], player2_name[50]; 
 void showBoard(void);
 void showRule(void);
-int checkforwin(void);
+int checkDraw(void);
+int checkHorizontal(void);
+int checkVertical(void);
+int checkDiagonal(void);
 void chooseSymbol(void); 
 
 int main(void)
@@ -25,8 +28,7 @@ int main(void)
     system("color 09");
     int current_player=1;
     int board_position[100],game_state=-1;
-    char symbol,re;
-    char start,dec;
+    char symbol;
     int menu_option;
 
     showRule();
@@ -95,10 +97,32 @@ read:
 			current_player--;
 		}
 
-       	 	score=checkVertical();
-       		score=checkDiagonal();
-		score=checkDraw();
-   
+       	 	game_state=checkVertical();
+		if(game_statr==1){
+			current_plyaer++;
+			showBoard();
+			break;
+		}
+		game_state=checkHorizontal();
+		 if(game_statr==1){
+                        current_plyaer++;
+                        showBoard();
+			break;
+                }
+
+		game_state=checkDiagonal();
+		 if(game_statr==1){
+                        current_plyaer++;
+                        showBoard();
+			break;
+                }
+
+		game_state=checkDraw();
+		 if(game_statr==1){
+                        current_plyaer++;
+                        showBoard();
+			break;
+                }  
         	current_player++;
         	showBoard();
     	}while(game_state == 0);
@@ -111,18 +135,18 @@ read:
         if(current_player==2)
         {
 		printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(leaderboard,"\t%s",player1_name);
-        	getch();
+        	getchar();
 	}
         else
         {
 		printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(leaderboard,"\t%s",player2_name);
-		getch();
+		getchar();
         }
         fclose(leaderboard);
     }
     else
         printf("\n\nGame Draws!\n\n");fprintf(leaderboard,"\t%s","DRAW");
-        getch();
+        getchar();
     }
     if(menu_option==2)
     {
@@ -167,7 +191,7 @@ int checkHorizontal(void)
     else
         return 0;
 }
-int checkVertical()
+int checkVertical(void)
 {
     if(board_symbol[0]==board_symbol[3] && board_symbol[3]==board_symbol[6])
         return 1;
@@ -178,7 +202,7 @@ int checkVertical()
     else
 	return 0;
 } 
-int checkDiagonal()
+int checkDiagonal(void)
 {
     if(board_symbol[0]==board_symbol[4] && board_symbol[4]==board_symbol[8])
         return 1;
@@ -187,10 +211,12 @@ int checkDiagonal()
     else
         return 0;
 }
-int checkDraw()
+int checkDraw(void)
 {
     if(board_symbol[0]!='1' && board_symbol[1]!='2' && board_symbol[2]!='3' && board_symbol[3]!='4' && board_symbol[4]!='5' && board_symbol[5]!='6' && board_symbol[6]!='7' && board_symbol[7]!='8' && board_symbol[8]!='9')
-        return 1;
+        return -1;
+    else
+	return 0;
 }
 
 
