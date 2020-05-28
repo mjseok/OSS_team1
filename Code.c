@@ -27,7 +27,7 @@ int main(void)
     fclose(leaderboard);
     system("color 09");
     int current_player=1;
-    int board_position[100],game_state=-1;
+    int board_position,game_state=-1;
     char symbol;
     int menu_option;
 
@@ -64,7 +64,7 @@ read:
 
     	do
     	{
-        	printf("%d\n", current_player);
+        	printf("current_player:%d\n", current_player);
         	current_player=((current_player%2)?1:2);
         	if(current_player==1)
         		printf("%s Type any digit from 1-9 to fill your response:- ",player1_name);
@@ -96,7 +96,7 @@ read:
 			printf("Wrong Selection\n");
 			current_player--;
 		}
-
+		game_state=checkVertical();
 		if(game_state==1){
 			current_player++;
 			showBoard();
@@ -127,7 +127,7 @@ read:
     	}while(game_state == 0);
 
 
-    leaderboard=fopen("score.txt","a+");
+    leaderboard=fopen("leaderboard.txt","a+");
     if(game_state==1)
     {
 
