@@ -14,8 +14,10 @@ char board_symbol[9]={'1','2','3','4','5','6','7','8','9'};
 char player1_name[50], player2_name[50]; 
 void showBoard(void);
 void showRule(void);
-int checkforwin(void);
-void chooseSymbol(void); 
+void chooseSymbol(void);
+int checkHorizontal(void);
+int checkVertical(void);
+int checkDiagonal(void); 
 
 int main(void)
 {
@@ -25,8 +27,8 @@ int main(void)
     system("color 09");
     int current_player=1;
     int board_position[100],game_state=-1;
-    char symbol,re;
-    char start,dec;
+    char symbol;
+    
     int menu_option;
 
     showRule();
@@ -95,9 +97,9 @@ read:
 			current_player--;
 		}
 
-       	 	score=checkVertical();
-       		score=checkDiagonal();
-		score=checkDraw();
+       	 	game_state=checkVertical();
+       		game_state=checkDiagonal();
+			game_state=checkDraw();
    
         	current_player++;
         	showBoard();
@@ -111,18 +113,19 @@ read:
         if(current_player==2)
         {
 		printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(leaderboard,"\t%s",player1_name);
-        	getch();
+        	getchar();
 	}
         else
         {
 		printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(leaderboard,"\t%s",player2_name);
-		getch();
+		getchar();
         }
         fclose(leaderboard);
     }
     else
+	{
         printf("\n\nGame Draws!\n\n");fprintf(leaderboard,"\t%s","DRAW");
-        getch();
+        getchar();
     }
     if(menu_option==2)
     {
@@ -230,7 +233,7 @@ void showRule(void)
 
 }
 
-int chooseSymbol(void)
+void chooseSymbol(void)
 {
     char dec;
 deci:
