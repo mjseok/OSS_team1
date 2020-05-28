@@ -36,10 +36,9 @@ int main(void)
     printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
     scanf("%d",&menu_option);
     if(menu_option==1)
-
     {
 read:
-
+	menu_option=1
 	leaderboard=fopen("leaderboard.txt","a+");
     	printf("\nEnter name of player1: ");
     	scanf("%s",player1_name);
@@ -64,7 +63,6 @@ read:
 
     	do
     	{
-        	printf("current_player:%d\n", current_player);
         	current_player=((current_player%2)?1:2);
         	if(current_player==1)
         		printf("%s Type any digit from 1-9 to fill your response:- ",player1_name);
@@ -97,56 +95,56 @@ read:
 			current_player--;
 		}
 		game_state=checkVertical();
-		if(game_state==1){
+		if(game_state==1)
+		{
 			current_player++;
 			showBoard();
 			break;
 		}
 		game_state=checkHorizontal();
-		 if(game_state==1){
+		 if(game_state==1)
+		 {
                         current_player++;
                         showBoard();
 			break;
                 }
 
 		game_state=checkDiagonal();
-		 if(game_state==1){
+		 if(game_state==1)
+		 {
                         current_player++;
                         showBoard();
 			break;
                 }
 
 		game_state=checkDraw();
-		 if(game_state==1){
-                        current_player++;
-                        showBoard();
-			break;
-                }  
         	current_player++;
         	showBoard();
     	}while(game_state == 0);
 
 
-    leaderboard=fopen("leaderboard.txt","a+");
-    if(game_state==1)
-    {
+    	leaderboard=fopen("leaderboard.txt","a+");
+    	if(game_state==1)
+    	{
 
-        if(current_player==2)
-        {
-		printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(leaderboard,"\t%s",player1_name);
-        	getchar();
-	}
-        else
-        {
-		printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(leaderboard,"\t%s",player2_name);
-		getchar();
-        }
-        fclose(leaderboard);
-    }
-    else
+        	if(current_player==2)
+        	{
+			printf("\n\nPlayer1 %s Wins!\n\n",player1_name);fprintf(leaderboard,"\t%s",player1_name);
+        		getchar();
+		}
+        	else
+        	{
+			printf("\n\nPlayer2 %s Wins!\n\n",player2_name);fprintf(leaderboard,"\t%s",player2_name);
+			getchar();
+        	}
+        	fclose(leaderboard);
+    	}
+    	else
 	{
-        printf("\n\nGame Draws!\n\n");fprintf(leaderboard,"\t%s","DRAW");
-        getchar();
+        	printf("\n\nGame Draws!\n\n");fprintf(leaderboard,"\t%s","DRAW");
+        	getchar();
+		fclose(leaderboard);
+    	}
     }
     if(menu_option==2)
     {
@@ -170,16 +168,15 @@ read:
         scanf("%d",&cho);
         if(cho==1)
             goto read;
-        else
-            getchar();
-    }
-    else
-    {
-        printf("\n\nShould have typed 1 to play the game!\nHope to see you back soon!\n\n");
-        getchar();
-    }
+    
+    	else
+	    
+    	{
+        	printf("\n\nShould have typed 1 to play the game!\nHope to see you back soon!\n\n");
+        	getchar();
+    	}
 
-}
+   }
 }
 int checkHorizontal(void)
 {
