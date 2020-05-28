@@ -29,7 +29,6 @@ int main(void)
     int current_player=1;
     int board_position[100],game_state=-1;
     char symbol;
-    
     int menu_option;
 
     showRule();
@@ -98,10 +97,31 @@ read:
 			current_player--;
 		}
 
-       	 	game_state=checkVertical();
-       		game_state=checkDiagonal();
-			game_state=checkDraw();
-   
+		if(game_state==1){
+			current_player++;
+			showBoard();
+			break;
+		}
+		game_state=checkHorizontal();
+		 if(game_state==1){
+                        current_player++;
+                        showBoard();
+			break;
+                }
+
+		game_state=checkDiagonal();
+		 if(game_state==1){
+                        current_player++;
+                        showBoard();
+			break;
+                }
+
+		game_state=checkDraw();
+		 if(game_state==1){
+                        current_player++;
+                        showBoard();
+			break;
+                }  
         	current_player++;
         	showBoard();
     	}while(game_state == 0);
@@ -195,7 +215,9 @@ int checkDiagonal(void)
 int checkDraw(void)
 {
     if(board_symbol[0]!='1' && board_symbol[1]!='2' && board_symbol[2]!='3' && board_symbol[3]!='4' && board_symbol[4]!='5' && board_symbol[5]!='6' && board_symbol[6]!='7' && board_symbol[7]!='8' && board_symbol[8]!='9')
-        return 1;
+        return -1;
+    else
+	return 0;
 }
 
 
