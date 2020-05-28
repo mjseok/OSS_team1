@@ -98,28 +98,28 @@ read:
 		}
 
        	 	game_state=checkVertical();
-		if(game_statr==1){
-			current_plyaer++;
+		if(game_state==1){
+			current_player++;
 			showBoard();
 			break;
 		}
 		game_state=checkHorizontal();
-		 if(game_statr==1){
-                        current_plyaer++;
+		 if(game_state==1){
+                        current_player++;
                         showBoard();
 			break;
                 }
 
 		game_state=checkDiagonal();
-		 if(game_statr==1){
-                        current_plyaer++;
+		 if(game_state==1){
+                        current_player++;
                         showBoard();
 			break;
                 }
 
 		game_state=checkDraw();
-		 if(game_statr==1){
-                        current_plyaer++;
+		 if(game_state==1){
+                        current_player++;
                         showBoard();
 			break;
                 }  
@@ -256,15 +256,14 @@ void showRule(void)
 
 }
 
-int chooseSymbol(void)
+void chooseSymbol(void)
 {
     char dec;
 deci:
     printf("\n\nPlayer1 %s choose the X or 0:", player1_name);
     dec=getchar();
     scanf("%c",&dec);
-    {
-        
+          
             if(dec=='X' || dec=='x')
             {
                 player1_symbol='X';
@@ -281,7 +280,7 @@ deci:
                 goto deci;
             }
 
-        }
+        
         
     }
 
