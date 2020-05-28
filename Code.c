@@ -18,6 +18,7 @@ void chooseSymbol(void);
 int checkHorizontal(void);
 int checkVertical(void);
 int checkDiagonal(void); 
+int checkDraw(void);
 
 int main(void)
 {
@@ -159,6 +160,7 @@ read:
     }
 
 }
+}
 int checkHorizontal(void)
 {
     if(board_symbol[0]==board_symbol[1] && board_symbol[1]==board_symbol[2])
@@ -170,7 +172,7 @@ int checkHorizontal(void)
     else
         return 0;
 }
-int checkVertical()
+int checkVertical(void)
 {
     if(board_symbol[0]==board_symbol[3] && board_symbol[3]==board_symbol[6])
         return 1;
@@ -181,7 +183,7 @@ int checkVertical()
     else
 	return 0;
 } 
-int checkDiagonal()
+int checkDiagonal(void)
 {
     if(board_symbol[0]==board_symbol[4] && board_symbol[4]==board_symbol[8])
         return 1;
@@ -190,7 +192,7 @@ int checkDiagonal()
     else
         return 0;
 }
-int checkDraw()
+int checkDraw(void)
 {
     if(board_symbol[0]!='1' && board_symbol[1]!='2' && board_symbol[2]!='3' && board_symbol[3]!='4' && board_symbol[4]!='5' && board_symbol[5]!='6' && board_symbol[6]!='7' && board_symbol[7]!='8' && board_symbol[8]!='9')
         return 1;
@@ -240,7 +242,7 @@ deci:
     printf("\n\nPlayer1 %s choose the X or 0:", player1_name);
     dec=getchar();
     scanf("%c",&dec);
-    {
+    
         
             if(dec=='X' || dec=='x')
             {
@@ -258,7 +260,7 @@ deci:
                 goto deci;
             }
 
-        }
+        
         
     }
 
