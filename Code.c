@@ -81,11 +81,11 @@ read:
     	{
         current_player = ((current_player % 2) ? player1_turn : player2_turn);
 			if (current_player == player1_turn)
-				printf("%s Type any digit from 1-9 to fill your response:- ", player1_name);
+				printf("%s Type any digit from 1-9 to fill your response:- ", player1.name);
 			else
-				printf("%s Type any digit from 1-9 to fill your response:- ", player2_name);
+				printf("%s Type any digit from 1-9 to fill your response:- ", player2.name);
 		scanf("%s",board_position);
-		symbol = ((current_player == player1_turn) ? player1_symbol : player2_symbol);
+		symbol = ((current_player == player1_turn) ? player1.symbol : player2.symbol);
 		
 		if (strcmp(board_position, "1") == 0  && board_symbol[0] == '1')
 			board_symbol[0] = symbol;
