@@ -38,6 +38,9 @@ int main(void)
 	const int gotoLeaderBoard = 2;
 	const int quitGame = 3;
 	
+	const int player1_turn =1;
+	const int player2_turn =2;
+	
 	showRule();
 
 	printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
@@ -65,13 +68,13 @@ int main(void)
 		showBoard();
 		do
 		{
-			current_player = ((current_player % 2) ? 1 : 2);
-			if (current_player == 1)
+			current_player = ((current_player % 2) ? player1_turn : player2_turn);
+			if (current_player == player1_turn)
 				printf("%s Type any digit from 1-9 to fill your response:- ", player1_name);
 			else
 				printf("%s Type any digit from 1-9 to fill your response:- ", player2_name);
 			scanf("%s",board_position);
-			symbol = ((current_player == 1) ? player1_symbol : player2_symbol);
+			symbol = ((current_player == player1_turn) ? player1_symbol : player2_symbol);
 			if (strcmp(board_position, "1") == 0  && board_symbol[0] == '1')
 				board_symbol[0] = symbol;
 			else if (strcmp(board_position,"2")==0 && board_symbol[1] == '2')
