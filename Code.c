@@ -167,9 +167,10 @@ read:
 
     else if (menu_option == gotoLeaderBoard)
     {
+		int cho;
+		char c = '\0';
+		int insert_error =0;
 menu2:
-	int cho;
-	char c = '\0';
 	system("cls");
 	printf("\n\n");
 	printf("\tLEADERBOARD\n\n");
@@ -185,7 +186,7 @@ menu2:
 		printf("%c", c);
 	}
 	fclose(leaderboard);
-	int insert_error =0;
+	
 	do{
 		printf("\n\nPress 1 to start the game, Press 3 to quit game : ");
 		scanf("%d", &cho);
