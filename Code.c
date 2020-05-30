@@ -157,16 +157,26 @@ read:
 		}
 		fclose(leaderboard);
 	}
+	else{
+		printf("\n\nGame Draws!\n\n");
+		fprintf(leaderboard,"\t%s","DRAW");
+		getchar();
+		fclose(leaderboard);
+	}
  }
 
     else if (menu_option == gotoLeaderBoard)
     {
 menu2:
-	system("cls");
 	int cho;
+	char c = '\0';
+	system("cls");
 	printf("\n\n");
 	printf("\tLEADERBOARD\n\n");
-	char c = '\0';
+	printf("-------------------------\n");
+	printf("Player1\t|Player2|Winner|\n");
+	printf("-------------------------\n");
+	
 	leaderboard = fopen("leaderboard.txt", "r");
 
 	while (c != EOF)
@@ -175,17 +185,25 @@ menu2:
 		printf("%c", c);
 	}
 	fclose(leaderboard);
-	printf("\n\nPress 1 to start the game:- ");
-	scanf("%d", &cho);
+	int insert_error =0;
+	do{
+		printf("\n\nPress 1 to start the game, Press 3 to quit game : ");
+		scanf("%d", &cho);
+		if(cho == gotoGame){
+			goto read;
+		}
+		else if(cho==quitGame){
+			printf("\n\nBye~\n");
+			break;
+		}
+		else
+		{
+			insert_error =1;
+			printf("\nPress again!");
+			getchar();
+		}	 
+	}while(insert_error);
 	
-	if(cho == gotoGame)
-		goto read;
-
-	else
-	{
-		printf("\n\nShould have typed 1 to play the game!\nHope to see you back soon!\n\n");
-		getchar();
-	} 
 }
     else 
     {
