@@ -30,12 +30,12 @@ int main(void)
     char board_position[100];
     int game_state=0;
     char symbol;
-    int menu_option;
+    char menu_option[10];
     const int someoneWin =1;
     const int keepGoing = 0;
-    const int gotoGame =1;
-    const int gotoLeaderBoard = 2;
-    const int quitGame = 3;
+    const char* gotoGame ="1";
+    const char* gotoLeaderBoard = "2";
+    const char* quitGame = "3";
     const int player1_turn =1;
     const int player2_turn =2;
 	
@@ -49,12 +49,12 @@ int main(void)
     showRule();
 
     printf("\n\nType 1 to start the game:-\nType 2 to view leader board:-\n");
-    scanf("%d",&menu_option);
-    if(menu_option == gotoGame)
+    scanf("%s", menu_option);
+    if(strcmp(menu_option , gotoGame) == 0)
     {
 read:
-	menu_option =gotoGame ;
-	leaderboard = fopen("leaderboard.txt","a+");
+	//menu_option =gotoGame ;
+		leaderboard = fopen("leaderboard.txt","a+");
     	printf("\nEnter name of player1: ");
     	scanf("%s", player1.name);
     	fprintf(leaderboard, "\n%s",player1.name);
@@ -178,9 +178,9 @@ read:
 	}
     }
 
-    else if (menu_option == gotoLeaderBoard)
+    else if (strcmp(menu_option, gotoLeaderBoard) == 0)
     {
-		int cho;
+		char cho[10];
 		char c = '\0';
 		int insert_error =1;
 menu2:
@@ -203,11 +203,13 @@ menu2:
 	while(insert_error)
 	{
 		printf("\n\nPress 1 to start the game, Press 3 to quit game : ");
-		scanf("%d", &cho);
-		if(cho == gotoGame){
+		scanf("%s", cho);
+		if(strcmp(cho, gotoGame) == 0)
+		{
 			goto read;
 		}
-		else if(cho==quitGame){
+		else if(strcmp(cho, quitGame) == 0)
+		{
 			printf("\n\nBye~\n");
 			break;
 		}
@@ -224,12 +226,12 @@ menu2:
 menu3:
 	printf("잘못된 입력입니다!");
 	printf("게임을 시작하려면 1을, 리더보드를 보려면 2를 입력하세요");
-	scanf("%d", &menu_option);
-	if (menu_option == gotoGame) 
+	scanf("%s", menu_option);
+	if (strcmp(menu_option, gotoGame) == 0) 
 	{
 		goto read;
 	}
-	else if (menu_option == gotoLeaderBoard) 
+	else if (strcmp(menu_option, gotoLeaderBoard) == 0) 
 	{
 		goto menu2;
 	}
@@ -316,7 +318,7 @@ void showBoard(char game_board[], Player_Info game_player1, Player_Info game_pla
 
 void showRule(void)
 {
-	char link;
+	char link[10];
 	printf("\tTic-Tac-Toe\n\n");
 	printf("Welcome to the most played 2D game and a sort of fun using X and O\n\n");
 	printf("Rules:-\n");
@@ -324,8 +326,8 @@ void showRule(void)
 	printf("\n2:Player who gets a combination of 3 same characters either diagonal or horizontally or \n  vertically will be declared as the winner");
 	printf("\n\nEnjoy the game! Be a Winner!\n\n");
 	printf("For more clarifications press Y else type any other character:- ");
-	scanf("%c", &link);
-	if (link == 'y' || link == 'Y')
+	scanf("%[^\n]s", link);
+	if (strcmp(link, "y") == 0 || strcmp(link, "Y") == 0)
 	{
 		system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
 	}
@@ -333,18 +335,18 @@ void showRule(void)
 
 void chooseSymbol(Player_Info* game_player1, Player_Info* game_player2)
 {
-    	char dec;
+    	char dec[10];
 deci:
     	printf("\n\nPlayer1 %s choose the X or 0:", game_player1->name);
-    	dec = getchar();
-    	scanf("%c",&dec);
+    	//dec = getchar();
+    	scanf("%s", dec);
     
-    	if(dec=='X' || dec=='x')
+    	if(strcmp(dec, "X") == 0 || strcmp(dec, "x") == 0)
     	{
     		game_player1->symbol='X';
     		game_player2->symbol='0';
     	}
-   	else if(dec=='O' || dec=='o')
+   	else if(strcmp(dec, "O") == 0 || strcmp(dec, "o") == 0)
     	{
     		game_player1->symbol='0';
         	game_player2->symbol='X';
