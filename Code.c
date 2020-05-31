@@ -326,7 +326,7 @@ void showRule(void)
 	printf("\n2:Player who gets a combination of 3 same characters either diagonal or horizontally or \n  vertically will be declared as the winner");
 	printf("\n\nEnjoy the game! Be a Winner!\n\n");
 	printf("For more clarifications press Y else type any other character:- ");
-	scanf("%s", link);
+	scanf("%[^\n]s", link);
 	if (strcmp(link, "y") == 0 || strcmp(link, "Y") == 0)
 	{
 		system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
