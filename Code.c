@@ -212,8 +212,7 @@ menu2:
 			break;
 		}
 		else
-		{
-			insert_error =1;
+		{		
 			printf("\nPress again!");
 			getchar();
 		}	 
