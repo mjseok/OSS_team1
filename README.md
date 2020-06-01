@@ -71,13 +71,20 @@
 - [**@seohyeonKK**](https://github.com/seohyeonKK)   
 - <sts05158@gmail.com>   
 
-**이름**
-- [**@깃허브아이디**](깃허브주소)   
-- <이메일주소>   
 
-**이름**
-- [**@깃허브아이디**](깃허브주소1)   
-- <이메일주소>    
+**Park ChaeEun**
+
+- [**@cherry2030**](https://github.com/cherry2030)   
+- <cherry2030@naver.com>   
+
+**Seok MinJi**
+
+- [**@mjseok**](https://github.com/mjseok)   
+- <mjseok98@gmail.com>   
+
+**Han JiWon**
+- [**@hanzzb**](https://github.com/hanzzbk)   
+- <hellojione2@gmail.com>   
 
 
 
