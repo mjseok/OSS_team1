@@ -61,7 +61,7 @@ read:
     	{
 	        leaderboard = fopen("leaderboard.txt", "a+");
 		fprintf(leaderboard, "\n%s", player1.name);
-		fprintf(leaderboard, "\t%S", player2.name);
+		fprintf(leaderboard, "\t%s", player2.name);
 		fclose(leaderboard);
 		chooseSymbol(&player1,&player2);
     	}
