@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/mjseok/OSS_team1">
-    <img src="![27783897](https://user-images.githubusercontent.com/46713032/81473935-19b25780-923d-11ea-9daf-f4dfede47d1f.jpg)" alt="TicTacToe Logo" width="72" height="72">
+    <img src="![](https://user-images.githubusercontent.com/46713032/81473935-19b25780-923d-11ea-9daf-f4dfede47d1f.jpg)" alt="TicTacToe Logo" width="72" height="72">
   </a>
 </p>
 
