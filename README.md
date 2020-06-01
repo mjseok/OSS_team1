@@ -1,4 +1,4 @@
-## 오픈소스SW개론 OSS_team1
+# 오픈소스SW개론 OSS_team1
 
 <p align="center">
   <a href="https://github.com/mjseok/OSS_team1">
@@ -51,7 +51,14 @@
 ```
 The two players select their symbols and then alternately display them on the 3X3 board.
 Winning or losing is determined by placing the same symbol on the horizontal, vertical or diagonal line first.
-In addition, the player's information of the game and the winner of the game can be saved as a text file(Leaderboard), and the previous record can be checked through the Leaderboard.
+Detailed information about Tic Tac Toe can be found through the 'Y' or 'y' key.
+In addition, the player's information of the game and the winner of the game can be saved as a text file, and the previous record can be checked through the leaderboard.
+
+Press '1' to start the game.
+Press '2' to print the LeaderBoard.
+Press '3' to exit the game.
+
+There is also a computer-to-player matchup for single players.
 ```
 
 
@@ -128,7 +135,14 @@ In addition, the player's information of the game and the winner of the game can
 ```
 두 명의 플레이어가 각자 기호를 선택한 후 3X3 보드판에 번갈아 가며 기호를 표시하는 방식으로 진행된다.
 승패는 먼저 가로, 세로 또는 대각선상에 같은 기호를 놓은 플레이어로 결정된다.
+Tic Tac Toe에 대한 자세한 설명은 'Y'나 'y' 키를 통해 확인할 수 있다.
 또한, 게임의 플레이어의 정보와 게임의 승자를 텍스트 파일로 저장하여 리더보드를 통해 이전의 기록을 확인할 수 있다.
+
+'1'을 눌러 게임을 시작하고
+'2'을 눌러 LeaderBoard를 출력하며
+'3'을 눌러 게임을 나갈 수도 있다.
+
+1인 플레이어를 위한 컴퓨터와의 대결 기능도 있다.
 ```
 
 
