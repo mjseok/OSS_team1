@@ -1,4 +1,4 @@
-# 오픈소스SW개론 OSS_team1
+## 오픈소스SW개론 OSS_team1
 
 <p align="center">
   <a href="https://github.com/mjseok/OSS_team1">
@@ -49,7 +49,9 @@
 ## How to play game
 
 ```
-The two players select their symbols and then alternately display them on the 3X3 board. Winning or losing is determined by placing the same symbol on the horizontal, vertical or diagonal line first. In addition, the player's information of the game and the winner of the game can be saved as a text file(Leaderboard), and the previous record can be checked through the Leaderboard.
+The two players select their symbols and then alternately display them on the 3X3 board.
+Winning or losing is determined by placing the same symbol on the horizontal, vertical or diagonal line first.
+In addition, the player's information of the game and the winner of the game can be saved as a text file(Leaderboard), and the previous record can be checked through the Leaderboard.
 ```
 
 
@@ -124,7 +126,9 @@ The two players select their symbols and then alternately display them on the 3X
 ## 게임 플레이 방법
 
 ```
-두 명의 플레이어가 각자 기호를 선택한 후 3X3 보드판에 번갈아 가며 기호를 표시하는 방식으로 진행된다. 승패는 먼저 가로, 세로 또는 대각선상에 같은 기호를 놓은 플레이어로 결정된다. 또한, 게임의 플레이어의 정보와 게임의 승자를 텍스트 파일로 저장하여 리더보드를 통해 이전의 기록을 확인할 수 있다.
+두 명의 플레이어가 각자 기호를 선택한 후 3X3 보드판에 번갈아 가며 기호를 표시하는 방식으로 진행된다.
+승패는 먼저 가로, 세로 또는 대각선상에 같은 기호를 놓은 플레이어로 결정된다.
+또한, 게임의 플레이어의 정보와 게임의 승자를 텍스트 파일로 저장하여 리더보드를 통해 이전의 기록을 확인할 수 있다.
 ```
 
 
