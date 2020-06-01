@@ -51,107 +51,107 @@ int main(void)
     if(strcmp(menu_option , gotoGame) == 0)
     {
 read:
-	//menu_option =gotoGame ;
-		printf("\nEnter name of player1: ");
-		scanf("%s", player1.name);
+	printf("\nEnter name of player1: ");
+	scanf("%s", player1.name);
     	printf("Enter name of player2: ");
     	scanf("%s", player2.name);
 
     	if(strcmp(player1.name, player2.name))
     	{
-	        leaderboard = fopen("leaderboard.txt", "a+");
-			fprintf(leaderboard, "\n%s", player1.name);
-			fprintf(leaderboard, "\t%s", player2.name);
-			fclose(leaderboard);
-			chooseSymbol(&player1,&player2);
+		leaderboard = fopen("leaderboard.txt", "a+");
+		fprintf(leaderboard, "\n%s", player1.name);
+		fprintf(leaderboard, "\t%s", player2.name);
+		fclose(leaderboard);
+		chooseSymbol(&player1,&player2);
     	}
-		else
-		{
-        	printf("Enter names of different players!\n\n");
-			goto read;	
-		}
-		system("color fc");
-		showBoard(board_symbol, player1, player2);
+	else
+	{
+		printf("Enter names of different players!\n\n");
+		goto read;	
+	}
+	system("color fc");
+	showBoard(board_symbol, player1, player2);
 
     	while(game_state == keepGoing)
     	{
-			if(current_player%2)
-			{
-				current_player=player1_turn;
-			}
-			else
-			{
-				current_player=player2_turn;
-			}
+		if(current_player%2)
+		{
+			current_player=player1_turn;
+		}
+		else
+		{
+			current_player=player2_turn;
+		}
         
-			if (current_player == player1_turn)
-			{
-				printf("%s Type any digit from 1-9 to fill your response:- ", player1.name);
-			}
-			else{
-				printf("%s Type any digit from 1-9 to fill your response:- ", player2.name);
-			}
-			scanf("%s",board_position);
-			if(current_player == player1_turn)
-			{
-				symbol=player1.symbol;
-			}
-			else
-			{
-				symbol=player2.symbol;
-			}
+		if (current_player == player1_turn)
+		{
+			printf("%s Type any digit from 1-9 to fill your response:- ", player1.name);
+		}
+		else
+		{
+			printf("%s Type any digit from 1-9 to fill your response:- ", player2.name);
+		}
+		scanf("%s",board_position);
+		if(current_player == player1_turn)
+		{
+			symbol=player1.symbol;
+		}
+		else
+		{
+			symbol=player2.symbol;
+		}
 		
-			if (strcmp(board_position, "1") == 0  && board_symbol[0] == '1')
-				board_symbol[0] = symbol;
-			else if (strcmp(board_position,"2")==0 && board_symbol[1] == '2')
-				board_symbol[1] = symbol;
-			else if (strcmp(board_position, "3") == 0 && board_symbol[2] == '3')
-				board_symbol[2] = symbol;
-			else if (strcmp(board_position, "4") == 0 && board_symbol[3] == '4')
-				board_symbol[3] = symbol;
-			else if (strcmp(board_position, "5") == 0 && board_symbol[4] == '5')
-				board_symbol[4] = symbol;
-			else if (strcmp(board_position, "6") == 0 && board_symbol[5] == '6')
-				board_symbol[5] = symbol;
-			else if (strcmp(board_position, "7") == 0 && board_symbol[6] == '7')
-				board_symbol[6] = symbol;
-			else if (strcmp(board_position, "8") == 0 && board_symbol[7] == '8')
-				board_symbol[7] = symbol;
-			else if (strcmp(board_position, "9") == 0 && board_symbol[8] == '9')
-				board_symbol[8] = symbol;
-			else
-			{
-				printf("Wrong Selection\n");
-				Sleep(1000);
-				current_player--;
-			}
+		if (strcmp(board_position, "1") == 0  && board_symbol[0] == '1')
+			board_symbol[0] = symbol;
+		else if (strcmp(board_position,"2")==0 && board_symbol[1] == '2')
+			board_symbol[1] = symbol;
+		else if (strcmp(board_position, "3") == 0 && board_symbol[2] == '3')
+			board_symbol[2] = symbol;
+		else if (strcmp(board_position, "4") == 0 && board_symbol[3] == '4')
+			board_symbol[3] = symbol;
+		else if (strcmp(board_position, "5") == 0 && board_symbol[4] == '5')
+			board_symbol[4] = symbol;
+		else if (strcmp(board_position, "6") == 0 && board_symbol[5] == '6')
+			board_symbol[5] = symbol;
+		else if (strcmp(board_position, "7") == 0 && board_symbol[6] == '7')
+			board_symbol[6] = symbol;
+		else if (strcmp(board_position, "8") == 0 && board_symbol[7] == '8')
+			board_symbol[7] = symbol;
+		else if (strcmp(board_position, "9") == 0 && board_symbol[8] == '9')
+			board_symbol[8] = symbol;
+		else
+		{
+			printf("Wrong Selection\n");
+			Sleep(1000);
+			current_player--;
+		}
 		
-			game_state = checkVertical(board_symbol);
-			if (game_state )
-			{
-				current_player++;
-				showBoard(board_symbol, player1, player2);
-				break;
-			}
-			game_state = checkHorizontal(board_symbol);
-			if (game_state )
-			{
-				current_player++;
-				showBoard(board_symbol, player1, player2);
-				break;
-			}
-		
-			game_state = checkDiagonal(board_symbol);
-			if (game_state )
-			{
-				current_player++;
-				showBoard(board_symbol, player1, player2);
-				break;
-			}
-		
-			game_state=checkDraw(board_symbol);
+		game_state = checkVertical(board_symbol);
+		if (game_state )
+		{
 			current_player++;
 			showBoard(board_symbol, player1, player2);
+			break;
+		}
+		game_state = checkHorizontal(board_symbol);
+		if (game_state )
+		{
+			current_player++;
+			showBoard(board_symbol, player1, player2);
+			break;
+		}
+		
+		game_state = checkDiagonal(board_symbol);
+		if (game_state )
+		{
+			current_player++;
+			showBoard(board_symbol, player1, player2);
+			break;
+		}
+		
+		game_state=checkDraw(board_symbol);
+		current_player++;
+		showBoard(board_symbol, player1, player2);
 	} 
  
 	leaderboard = fopen("leaderboard.txt", "a+");
@@ -159,16 +159,16 @@ read:
     	{
         	if(current_player==2)
         	{
-				printf("\n\nPlayer1 %s Wins!\n\n",player1.name);
-				fprintf(leaderboard,"\t%s",player1.name);
-			}
+			printf("\n\nPlayer1 %s Wins!\n\n",player1.name);
+			fprintf(leaderboard,"\t%s",player1.name);
+		}
         	else
         	{
-				printf("\n\nPlayer2 %s Wins!\n\n",player2.name);
-				fprintf(leaderboard,"\t%s",player2.name);
-			}
-			fclose(leaderboard);
+			printf("\n\nPlayer2 %s Wins!\n\n",player2.name);
+			fprintf(leaderboard,"\t%s",player2.name);
 		}
+		fclose(leaderboard);
+	}
 	else
 	{
 		printf("\n\nGame Draws!\n\n");
@@ -179,9 +179,9 @@ read:
 
     else if (strcmp(menu_option, gotoLeaderBoard) == 0)
     {
-		char cho[10];
-		char c = '\0';
-		int insert_error =1;
+	char cho[10];
+	char c = '\0';
+	int insert_error =1;
 menu2:
 	system("cls");
 	printf("\n\n");
@@ -247,12 +247,12 @@ int checkHorizontal(char game_board[])
 	const int horizontal_fail = 0;
 	if(game_board[0] == game_board[1] && game_board[1] == game_board[2])
 		return horizontal_complete;
-    else if(game_board[3] == game_board[4] && game_board[4] == game_board[5])
-        return horizontal_complete;
-    else if(game_board[6] == game_board[7] && game_board[7] == game_board[8])
-        return horizontal_complete; 
-    else
-        return horizontal_fail;
+       	else if(game_board[3] == game_board[4] && game_board[4] == game_board[5])
+	       	return horizontal_complete;
+	else if(game_board[6] == game_board[7] && game_board[7] == game_board[8])
+		return horizontal_complete; 
+	else
+		return horizontal_fail;
 }
 
 
@@ -261,37 +261,35 @@ int checkVertical(char game_board[])
 	const int vertical_complete =1;
 	const int vertical_fail = 0;
 	
-    if(game_board[0] == game_board[3] && game_board[3] == game_board[6])
-        return vertical_complete;
-    else if(game_board[1] == game_board[4] && game_board[4] == game_board[7])
+	if(game_board[0] == game_board[3] && game_board[3] == game_board[6])
+        	return vertical_complete;
+	else if(game_board[1] == game_board[4] && game_board[4] == game_board[7])
 		return vertical_complete;
-    else if(game_board[2] == game_board[5] && game_board[5] == game_board[8])
+	else if(game_board[2] == game_board[5] && game_board[5] == game_board[8])
 		return vertical_complete;
    	else
 		return vertical_fail;
-
 } 
 
 int checkDiagonal(char game_board[])
 {
 	const int diagonal_complete =1;
 	const int diagonal_fail = 0;
-    if(game_board[0] == game_board[4] && game_board[4] == game_board[8])
-        return diagonal_complete ;
-    else if(game_board[2] == game_board[4] && game_board[4] == game_board[6])
-        return diagonal_complete;
-    else
-        return diagonal_fail;
+	if(game_board[0] == game_board[4] && game_board[4] == game_board[8])
+        	return diagonal_complete ;
+	else if(game_board[2] == game_board[4] && game_board[4] == game_board[6])
+        	return diagonal_complete;
+    	else
+        	return diagonal_fail;
 }
 
 int checkDraw(char game_board[])
 {
 	const int draw_complete = -1;
 	const int draw_fail = 0;
-	
-    if(game_board[0] != '1' && game_board[1] != '2' && game_board[2] != '3' && game_board[3] !='4' && game_board[4] != '5' && game_board[5] != '6' && game_board[6] != '7' && game_board[7] != '8' && game_board[8] != '9')
-        return draw_complete;
-    else
+	if(game_board[0] != '1' && game_board[1] != '2' && game_board[2] != '3' && game_board[3] !='4' && game_board[4] != '5' && game_board[5] != '6' && game_board[6] != '7' && game_board[7] != '8' && game_board[8] != '9')
+        	return draw_complete;
+    	else
 		return draw_fail;
 
 }
@@ -345,7 +343,7 @@ deci:
     		game_player1->symbol='X';
     		game_player2->symbol='0';
     	}
-		else if(strcmp(dec, "O") == 0 || strcmp(dec, "o") == 0)
+	else if(strcmp(dec, "O") == 0 || strcmp(dec, "o") == 0)
     	{
     		game_player1->symbol='0';
         	game_player2->symbol='X';
