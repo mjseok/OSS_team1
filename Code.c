@@ -31,10 +31,17 @@ void playWithFriend();
 //void playWithComputer();
 void showLeaderBoard(void);
 void quit(void);
-int checkposition(char board_position[], char board_symbol[], char symbol, int current_player);//
-int checkVacancies(int i, char board_symbol[]);//
+int checkposition(char board_position[], char board_symbol[], char symbol, int current_player);
+int checkVacancies(int i, char board_symbol[]);
+
+//int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
+//int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
+//int checkComputer(char game_board[], char computer_symbol, char player_symbol);
+//int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
+
 Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
+
 int main(void)
 {
 	system("color 09");
@@ -391,3 +398,81 @@ void chooseMenu()
 		}
 	}
 }
+
+/*
+int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol)
+{
+	if(game_board[index1] == symbol && game_board[index2] == symbol)
+	{
+		//아래의 'o'와 'x'를 컴퓨터의 기호와 플레이어의 기호로 바꿔주세요
+		if(game_board[index3] != 'o' && game_board[index3] != 'x')
+		{
+			return index3;
+		}
+	}
+	return 0;
+}
+
+int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol)
+{
+	int proper_index = 0;
+
+	proper_index = checkValueOnComputer(game_board, index1, index2, index3, symbol);
+	if(proper_index)
+		return proper_index;
+
+	proper_index = checkValueOnComputer(game_board, index2, index3, index1, symbol);
+	if(proper_index)
+		return proper_index;
+
+	proper_index = checkValueOnComputer(game_board, index1, index3, index2, symbol);
+
+	return proper_index;
+}
+
+int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol)
+{
+	int i;
+	int computer_index = 0;
+
+	for(i = 0; i <9; i++)
+	{
+		if(game_board[i] != computer_symbol && game_board[i] != player_symbol)
+		{
+			computer_index = i;
+			return computer_index;
+		}
+	}
+	return computer_index;
+}
+
+int checkComputer(char game_board[], char computer_symbol, char player_symbol)
+{
+	int winning_case[8][3] = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8},{0, 4, 8}, {2, 4, 6}};
+       	int final_index = 0;
+	int i;
+
+	//Find the case that the computer wins
+	for(i = 0; i <8; i++)
+	{
+		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], computer_symbol);
+		if(final_index)
+			return final_index;
+	}
+
+	//Find the case that computer loses
+	for(i = 0; i < 8; i++)
+	{
+		final_index = checkCaseOnComputer(game_board, winning_final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], player_symbol);
+		if(final_index)
+			return final_index;
+	}
+
+	retrun final_index;
+}
+
+*/
+
+
+
+
