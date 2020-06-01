@@ -35,20 +35,7 @@ Player_Info player2 = { '\0','\0' };
 
 int main(void)
 {
-
-	int current_player = 1;
-	int game_state = 0;
-	const int someoneWin = 1;
-	const int keepGoing = 0;
-	const char* gotoTwoPlayerGame = "1";
-	const char* gotoComputerGame = "2";
-	const char* gotoLeaderBoard = "3";
-	const char* quitGame = "4";
-
-	const int player1_turn = 1;
-	const int player2_turn = 2;
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
-
  
 	system("color 09");
 	showRule();
@@ -56,7 +43,6 @@ int main(void)
 
 }
 
- 
 
 int checkHorizontal(char game_board[])
 {
@@ -120,7 +106,7 @@ int checkDiagonal(char game_board[])
 int checkDraw(char game_board[])
 {
 
-	const int draw_complete = -1;
+	const int draw_complete = 1;
 	const int draw_fail = 0;
 
 	if (game_board[0] != '1' && game_board[1] != '2' && game_board[2] != '3' && game_board[3] != '4' && game_board[4] != '5' && game_board[5] != '6' && game_board[6] != '7' && game_board[7] != '8' && game_board[8] != '9')
@@ -148,7 +134,6 @@ void showLeaderBoard(FILE *leaderboard) {
 
 	while (c != EOF)
 	{
-
 		c = (char)(getc(leaderboard));
 		printf("%c", c);
 	}
@@ -286,10 +271,8 @@ void chooseMenu() {
 		}
 
 	}
-
+	fclose(leaderboard);
 }
-
- 
 
 void playwithFriend() {
 
