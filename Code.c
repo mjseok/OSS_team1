@@ -2,6 +2,7 @@
 This code has been compiled in Code::Blocks 16.01 IDE on Windows 10
 Author:- Mishal Shah
 */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -9,11 +10,14 @@ Author:- Mishal Shah
 #pragma warning (disable:4996)
 #define _CRT_SECURE_NO_WARNINGS
 
+ 
 typedef struct
 {
 	char symbol;
 	char name[50];
 }Player_Info;
+
+void chooseMenu();
 void showRule(void);
 void chooseSymbol();
 int checkHorizontal(char game_board[]);
@@ -25,8 +29,9 @@ void enterName();
 int changePlayer(int current_player);
 int checksomeoneWin(char game_board[]);
 void playwithFriend();
-
-Player_Info player1 = { '\0','\0' };
+void playwithComputer();
+void showLeaderBoard(FILE *leaderboard);
+void quit();
 Player_Info player2 = { '\0','\0' };
 
 int main(void)
@@ -47,70 +52,7 @@ int main(void)
  
 	system("color 09");
 	showRule();
-	printf("\n\nPress 1 to play with friend\nPress 2 to play with computer\nPress 3 to show LeaderBoard\nPress 4 to quit Game\n--> ");
-	scanf("%s", menu_option);
-	if (strcmp(menu_option, gotoTwoPlayerGame) == 0)
-	{
-		playwithFriend();
-	}
-	else if (strcmp(menu_option, gotoLeaderBoard) == 0)
-	{
-		char cho[10];
-		char c = '\0';
-		int insert_error = 1;
-	menu2:
-		system("cls");
-		printf("\n\n");
-		printf("\tLEADERBOARD\n\n");
-		printf("-------------------------\n");
-		printf("Player1\t|Player2|Winner|\n");
-		printf("-------------------------\n");
-		leaderboard = fopen("leaderboard.txt", "r");
-		while (c != EOF)
-		{
-			c = (char)(getc(leaderboard));
-			printf("%c", c);
-		}
-		fclose(leaderboard);
-		while(insert_error)
-		{
-			printf("\n\nPress 1 to start the game with friends, Press 2 to start the game_with_computer, Press 4 to quit game : ");
-			scanf("%s", cho);
-			if (strcmp(cho, gotoTwoPlayerGame) == 0)
-			{
-				playwithFriend();
-			}
-			else if (strcmp(cho, quitGame) == 0)
-			{
-				printf("\n\nBye~\n");
-				break;
-			}
-			else
-			{
-				printf("\nPress again!");
-				getchar();
-			}
-		}
-	}
-	else
-	{
-	menu3:
-		printf("잘못된 입력입니다!");
-		printf("2인용게임을 시작하려면 1을, 컴퓨터게임을 시작하려면 2를, 리더보드를 보려면 3를 입력하세요");
-		scanf("%s", menu_option);
-		if (strcmp(menu_option, gotoTwoPlayerGame) == 0)
-		{
-			playwithFriend();
-		}
-		else if (strcmp(menu_option, gotoLeaderBoard) == 0)
-		{
-			goto menu2;
-		}
-		else
-		{
-			goto menu3;
-		}
-	}
+	chooseMenu();
 }
 
 int checkHorizontal(char game_board[])
@@ -155,7 +97,7 @@ int checkDiagonal(char game_board[])
 
 int checkDraw(char game_board[])
 {
-	const int draw_complete = -1;
+	const int draw_complete = 1;
 	const int draw_fail = 0;
 	if (game_board[0] != '1' && game_board[1] != '2' && game_board[2] != '3' && game_board[3] != '4' && game_board[4] != '5' && game_board[5] != '6' && game_board[6] != '7' && game_board[7] != '8' && game_board[8] != '9')
 		return draw_complete;
@@ -163,39 +105,78 @@ int checkDraw(char game_board[])
 		return draw_fail;
 }
 
+void showLeaderBoard(FILE *leaderboard) {
+
+	char cho[10];
+	char c = '\0';
+	int insert_error = 1;
+
+	system("cls");
+	printf("\n\n");
+	printf("\tLEADERBOARD\n\n");
+	printf("-------------------------\n");
+	printf("Player1\t|Player2|Winner|\n");
+	printf("-------------------------\n");
+
+	leaderboard = fopen("leaderboard.txt", "r");
+
+	while (c != EOF)
+	{
+		c = (char)(getc(leaderboard));
+		printf("%c", c);
+	}
+	fclose(leaderboard);
+
+	chooseMenu(); 
+
+}
+
+void quit() {
+
+	printf("\nBye~~\n");
+	exit(1);
+}
+
 void showBoard(char game_board[])
 {
+
 	system("cls");
 	printf("\tTic-Tac-Toe\n\n");
 	printf("\n\n");
 	printf("%s:- (%c)\n%s:-  (%c)\n\n\n", player1.name, player1.symbol, player2.name, player2.symbol);
-
 	printf("  %c |  %c | %c\n", game_board[0], game_board[1], game_board[2]);
 	printf("    |    |    \n");
 	printf("----|----|----\n");
 	printf("    |    |    \n");
 	printf("  %c |  %c | %c\n", game_board[3], game_board[4], game_board[5]);
-	printf("    |    |    \n");
-	printf("----|----|----\n");
+ 	printf("    |    |    \n");
+        printf("----|----|----\n");
 	printf("  %c |  %c | %c\n", game_board[6], game_board[7], game_board[8]);
 	printf("    |    |    \n");
 }
 
 void showRule(void)
 {
+
 	char link[10];
 	printf("\tTic-Tac-Toe\n\n");
 	printf("Welcome to the most played 2D game and a sort of fun using X and O\n\n");
 	printf("Rules:-\n");
+
 	printf("\n1:Each player will be entering the number to put respective X or O in the desired position");
+
 	printf("\n2:Player who gets a combination of 3 same characters either diagonal or horizontally or \n  vertically will be declared as the winner");
+
 	printf("\n\nEnjoy the game! Be a Winner!\n\n");
+
 	printf("For more clarifications press Y else type any other character:- ");
+
 	scanf("%[^\n]s", link);
 	if (strcmp(link, "y") == 0 || strcmp(link, "Y") == 0)
 	{
 		system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
 	}
+
 }
 
 void chooseSymbol()
@@ -203,7 +184,8 @@ void chooseSymbol()
 	char dec[10];
 	int insert_error = 1;
 	printf("\n\nPlayer1 %s choose the X or 0:", player1.name);
-	while (insert_error) {
+	while (insert_error) 
+	{
 		scanf("%s", dec);
 		if (strcmp(dec, "X") == 0 || strcmp(dec, "x") == 0)
 		{
@@ -237,6 +219,71 @@ void enterName()
 		printf("Enter name of player2: ");
 		scanf("%s", player2.name);
 	}
+
+		else if (strcmp(dec, "O") == 0 || strcmp(dec, "o") == 0)
+		{
+			player1.symbol = '0';
+			player2.symbol = 'X';
+			insert_error = 0;
+		}
+
+		else
+		{
+			printf("Please enter either X or O only \n\n");
+		}
+
+	}
+}
+
+ 
+
+void chooseMenu() {
+
+	FILE *leaderboard;
+	const char* gotoTwoPlayerGame = "1";
+	const char* gotoComputerGame = "2";
+	const char* gotoLeaderBoard = "3";
+	const char* quitGame = "4";
+	int insert_error = 0;
+	char menu_option[10];
+
+	leaderboard = fopen("leaderboard.txt", "a+");
+
+	while (!insert_error) {
+
+		printf("\n\nPress 1 to play with friend\nPress 2 to play with computer\nPress 3 to show LeaderBoard\nPress 4 to quit Game\n--> ");
+		scanf("%s", menu_option);
+
+		if (strcmp(menu_option, gotoTwoPlayerGame) == 0) {
+			playwithFriend();
+			break;
+
+		}
+		else if (strcmp(menu_option, gotoComputerGame) == 0) {
+			playwithComputer();
+			break;
+		}
+
+		else if (strcmp(menu_option, gotoLeaderBoard) == 0) {
+			showLeaderBoard(leaderboard);
+			break;
+		}
+
+		else if (strcmp(menu_option, quitGame) == 0) {
+			quit();
+		}
+
+		else {
+			printf("\nWrong insert. Press Again!");
+		}
+
+	}
+	fclose(leaderboard);
+}
+
+void playwithComputer() {
+
+	printf("play with Computer!\n");
 
 }
 void playwithFriend()
@@ -276,6 +323,7 @@ void playwithFriend()
 		game_state = checksomeoneWin(board_symbol);
 		showBoard(board_symbol);
 		leaderboard = fopen("leaderboard.txt", "a+");
+
 		if (game_state == someoneWin)
 		{
 			if (current_player == 2)
@@ -329,7 +377,6 @@ int checkPosition(char board_position[], char board_symbol[], char symbol, int c
 
 int checkVacancies(int i, char board_symbol[])
 {
-	//char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	if (board_symbol[i] == i + '1') 
 	{
 		return 1;//true
