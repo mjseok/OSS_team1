@@ -22,6 +22,7 @@ int checkVertical(char game_board[]);
 int checkDiagonal(char game_board[]); 
 int checkDraw(char game_board[]);
 void showBoard(char game_board[], Player_Info game_player1, Player_Info game_player2);
+void showLeaderBoard(FILE *leaderboard);
 
 int main(void)
 {
@@ -179,26 +180,7 @@ read:
 
     else if (strcmp(menu_option, gotoLeaderBoard) == 0)
     {
-	char cho[10];
-	char c = '\0';
-	int insert_error =1;
-menu2:
-	system("cls");
-	printf("\n\n");
-	printf("\tLEADERBOARD\n\n");
-	printf("-------------------------\n");
-	printf("Player1\t|Player2|Winner|\n");
-	printf("-------------------------\n");
-	
-	leaderboard = fopen("leaderboard.txt", "r");
-
-	while (c != EOF)
-	{
-		c = (char)(getc(leaderboard));
-		printf("%c", c);
-	}
-	fclose(leaderboard);
-	
+		showLeaderBoard(leaderboard);
 	while(insert_error)
 	{
 		printf("\n\nPress 1 to start the game, Press 3 to quit game : ");
@@ -353,6 +335,29 @@ deci:
     		printf("Please enter either X or O only \n\n");
         	goto deci;
     	}
+}
+void showLeaderBoard(FILE *leaderboard) {
+
+	char cho[10];
+	char c = '\0';
+	int insert_error = 1;
+
+	system("cls");
+	printf("\n\n");
+	printf("\tLEADERBOARD\n\n");
+	printf("-------------------------\n");
+	printf("Player1\t|Player2|Winner|\n");
+	printf("-------------------------\n");
+
+	leaderboard = fopen("leaderboard.txt", "r");
+ 
+	while (c != EOF)
+
+	{
+		c = (char)(getc(leaderboard));
+		printf("%c", c);
+	}
+
+	fclose(leaderboard);
 
 }
-
