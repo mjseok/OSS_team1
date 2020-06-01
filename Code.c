@@ -34,10 +34,11 @@ void quit(void);
 int checkposition(char board_position[], char board_symbol[], char symbol, int current_player);
 int checkVacancies(int i, char board_symbol[]);
 
-//int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
-//int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
-//int checkComputer(char game_board[], char computer_symbol, char player_symbol);
-//int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
+int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
+int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
+int checkComputer(char game_board[], char computer_symbol, char player_symbol);
+int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
+void playWithComputer(void);
 
 Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
@@ -305,7 +306,7 @@ int checkposition(char board_position[], char board_symbol[], char symbol, int c
 int checkVacancies(int i, char board_symbol[])
 {
 	const int vacancy = 1;
-	const int not_vacanvy = 0;
+	const int not_vacancy = 0;
 
 	if (board_symbol[i] == i + '1')
        	{
@@ -380,7 +381,7 @@ void chooseMenu()
 		}
 		else if (strcmp(menu_option, gotoComputerGame) == 0) 
 		{
-			//playWithComputer();
+			playWithComputer();
 			break;
 		}
 		else if (strcmp(menu_option, gotoLeaderBoard) == 0) 
@@ -399,7 +400,7 @@ void chooseMenu()
 	}
 }
 
-/*
+
 int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol)
 {
 	if(game_board[index1] == symbol && game_board[index2] == symbol)
@@ -463,15 +464,115 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 	//Find the case that computer loses
 	for(i = 0; i < 8; i++)
 	{
-		final_index = checkCaseOnComputer(game_board, winning_final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], player_symbol);
+		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], player_symbol);
 		if(final_index)
 			return final_index;
 	}
 
-	retrun final_index;
+	return final_index;
 }
 
-*/
+void playWithComputer()
+{
+
+	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
+	char board_position[10];
+	const int keepGoing = 0;
+	int game_state = 0;
+	int current_player = 1;
+	const int player1_turn = 1;
+	const int player2_turn = 2;
+	char symbol;
+	const int someoneWin = 1;
+	int computer;
+	char player_symbol = 'o';
+	char computer_symbol = 'x';
+
+
+system("color fc");
+
+showBoard(board_symbol);
+
+while (game_state == keepGoing)
+{
+if (current_player % 2)
+{
+current_player = player1_turn;
+}
+else
+{
+current_player = player2_turn;
+}
+
+if (current_player == player1_turn)
+{
+symbol = player_symbol;
+}
+else
+{
+symbol = computer_symbol;
+}
+
+if (current_player == player1_turn)
+{
+printf("Type any digit from 1-9 to fill your response:- ");
+scanf("%s", board_position);
+if (strcmp(board_position, "1") == 0 && board_symbol[0] == '1')
+board_symbol[0] = symbol;
+else if (strcmp(board_position, "2") == 0 && board_symbol[1] == '2')
+board_symbol[1] = symbol;
+else if (strcmp(board_position, "3") == 0 && board_symbol[2] == '3')
+board_symbol[2] = symbol;
+else if (strcmp(board_position, "4") == 0 && board_symbol[3] == '4')
+board_symbol[3] = symbol;
+else if (strcmp(board_position, "5") == 0 && board_symbol[4] == '5')
+board_symbol[4] = symbol;
+else if (strcmp(board_position, "6") == 0 && board_symbol[5] == '6')
+board_symbol[5] = symbol;
+else if (strcmp(board_position, "7") == 0 && board_symbol[6] == '7')
+board_symbol[6] = symbol;
+else if (strcmp(board_position, "8") == 0 && board_symbol[7] == '8')
+board_symbol[7] = symbol;
+else if (strcmp(board_position, "9") == 0 && board_symbol[8] == '9')
+board_symbol[8] = symbol;
+else
+{
+printf("Wrong Selection\n");
+Sleep(1000);
+current_player--;
+}
+}
+else
+{
+computer = checkComputer(board_symbol, computer_symbol, player_symbol);
+if (!computer)
+{
+computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
+}
+board_symbol[computer] = symbol;
+printf("Computer select %d\n", computer + 1);
+Sleep(1000);
+
+}
+
+game_state = checkSomeoneWin(board_symbol);
+current_player++;
+showBoard(board_symbol);
+}
+//showResult(leaderboard, game_state, current_player);
+if (game_state == someoneWin)
+{
+printf("\n\nSomeone Wins!\n\n");
+}
+else
+{
+printf("\n\nGame Draws!\n\n");
+}
+
+//fclose(leaderboard);
+}
+
+
 
 
 
