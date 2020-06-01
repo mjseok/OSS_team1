@@ -272,58 +272,7 @@ void playwithFriend()
 		{
 			symbol = player2.symbol;
 		}
-		if (strcmp(board_position, "1") == 0 && board_symbol[0] == '1')
-		{
-			board_symbol[0] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "2") == 0 && board_symbol[1] == '2')
-		{
-			board_symbol[1] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "3") == 0 && board_symbol[2] == '3')
-		{
-
-			board_symbol[2] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "4") == 0 && board_symbol[3] == '4')
-		{
-			board_symbol[3] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "5") == 0 && board_symbol[4] == '5')
-		{
-			board_symbol[4] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "6") == 0 && board_symbol[5] == '6')
-		{
-			board_symbol[5] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "7") == 0 && board_symbol[6] == '7')
-		{
-			board_symbol[6] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "8") == 0 && board_symbol[7] == '8')
-		{
-			board_symbol[7] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else if (strcmp(board_position, "9") == 0 && board_symbol[8] == '9')
-		{
- 
-			board_symbol[8] = symbol;
-			current_player = changePlayer(current_player);
-		}
-		else
-		{
-			printf("Wrong Selection\n");
-			Sleep(1000);
-		}
+		current_player = checkPosition(board_position,board_symbol,symbol,current_player);
 		game_state = checksomeoneWin(board_symbol);
 		showBoard(board_symbol);
 		leaderboard = fopen("leaderboard.txt", "a+");
@@ -349,8 +298,50 @@ void playwithFriend()
 		}
 	}
 }
+int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player) {
+	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
+	int flag = 0;
+	for (int i = 0; i < 9; i++) 
+	{
+		if (strcmp(check_position[i], board_position) == 0) 
+		{
+			flag = 1;
+			if (checkVacancies(i, board_symbol) == 1) 
+			{
+				board_symbol[i] = symbol;
+				current_player = changePlayer(current_player);
+				break;
+			}
+			else 
+			{
+				printf("Wrong Selection\n");
+				Sleep(1000);
+			}
+		}
+	}
+	if (flag == 0) 
+	{
+		printf("Wrong Selection\n");
+		Sleep(1000);
+	}
+	return current_player;
+}
 
-int changePlayer(int current_player) {
+int checkVacancies(int i, char board_symbol[])
+{
+	//char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
+	if (board_symbol[i] == i + '1') 
+	{
+		return 1;//true
+	}
+	else
+	{
+		return 0;//false
+	}
+}
+	
+int changePlayer(int current_player) 
+{
 	const int player1_turn = 1;
 	const int player2_turn = 2;
 
@@ -363,7 +354,8 @@ int changePlayer(int current_player) {
 	}
 }
 
-int checksomeoneWin(char game_board[]) {
+int checksomeoneWin(char game_board[]) 
+{
 	if (checkHorizontal(game_board)) {
 		return 1;
 	}
