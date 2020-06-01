@@ -181,26 +181,7 @@ read:
     else if (strcmp(menu_option, gotoLeaderBoard) == 0)
     {
 		showLeaderBoard(leaderboard);
-	while(insert_error)
-	{
-		printf("\n\nPress 1 to start the game, Press 3 to quit game : ");
-		scanf("%s", cho);
-		if(strcmp(cho, gotoGame) == 0)
-		{
-			goto read;
-		}
-		else if(strcmp(cho, quitGame) == 0)
-		{
-			printf("\n\nBye~\n");
-			break;
-		}
-		else
-		{		
-			printf("\nPress again!");
-			getchar();
-		}	 
-	}
-  }
+    }
    
     else 
     {
@@ -214,7 +195,7 @@ menu3:
 	}
 	else if (strcmp(menu_option, gotoLeaderBoard) == 0) 
 	{
-		goto menu2;
+		showLeaderBoard(leaderboard);
 	}
 	else 
 	{
@@ -317,7 +298,6 @@ void chooseSymbol(Player_Info* game_player1, Player_Info* game_player2)
     	char dec[10];
 deci:
     	printf("\n\nPlayer1 %s choose the X or 0:", game_player1->name);
-    	//dec = getchar();
     	scanf("%s", dec);
     
     	if(strcmp(dec, "X") == 0 || strcmp(dec, "x") == 0)
