@@ -43,8 +43,6 @@ int main(void)
     Player_Info player2;
     char board_symbol[9]={'1','2','3','4','5','6','7','8','9'};
 
-    leaderboard = fopen("leaderboard.txt","a+");
-    fclose(leaderboard);
     system("color 09");
     showRule();
 
@@ -54,18 +52,18 @@ int main(void)
     {
 read:
 	//menu_option =gotoGame ;
-		leaderboard = fopen("leaderboard.txt","a+");
-    	printf("\nEnter name of player1: ");
-    	scanf("%s", player1.name);
-    	fprintf(leaderboard, "\n%s",player1.name);
+	printf("\nEnter name of player1: ");
+	scanf("%s", player1.name);
     	printf("Enter name of player2: ");
     	scanf("%s", player2.name);
-    	fprintf(leaderboard, "\t%s", player2.name);
-    	fclose(leaderboard);
 
     	if(strcmp(player1.name, player2.name))
     	{
-	        chooseSymbol(&player1,&player2);
+	        leaderboard = fopen("leaderboard.txt", "a+");
+		fprintf(leaderboard, "\n%s", player1.name);
+		fprintf(leaderboard, "\t%S", player2.name);
+		fclose(leaderboard);
+		chooseSymbol(&player1,&player2);
     	}
    	else
 	{ 
@@ -127,9 +125,9 @@ read:
 		game_state = checkVertical(board_symbol);
 		if (game_state )
 		{
-				current_player++;
-				showBoard(board_symbol, player1, player2);
-				break;
+			current_player++;
+			showBoard(board_symbol, player1, player2);
+			break;
 		}
 		game_state = checkHorizontal(board_symbol);
 		if (game_state )
@@ -142,9 +140,9 @@ read:
 		game_state = checkDiagonal(board_symbol);
 		if (game_state )
 		{
-				current_player++;
-				showBoard(board_symbol, player1, player2);
-				break;
+			current_player++;
+			showBoard(board_symbol, player1, player2);
+			break;
 		}
 		
 		game_state=checkDraw(board_symbol);
@@ -159,13 +157,11 @@ read:
         	{
 			printf("\n\nPlayer1 %s Wins!\n\n",player1.name);
 			fprintf(leaderboard,"\t%s",player1.name);
-        		getchar();
 		}
         	else
         	{
 			printf("\n\nPlayer2 %s Wins!\n\n",player2.name);
 			fprintf(leaderboard,"\t%s",player2.name);
-			getchar();
 		}
 		fclose(leaderboard);
 	}
@@ -173,7 +169,6 @@ read:
 	{
 		printf("\n\nGame Draws!\n\n");
 		fprintf(leaderboard,"\t%s","DRAW");
-		getchar();
 		fclose(leaderboard);
 	}
     }
