@@ -297,10 +297,10 @@ int checkDraw(char game_board[])
 void showBoard(char game_board[], Player_Info game_player1, Player_Info game_player2)
 {
 	system("cls");
-    printf("\tTic-Tac-Toe\n\n");
+	printf("\tTic-Tac-Toe\n\n");
 
-     printf("\n\n");
-     printf("%s:- (%c)\n%s:-  (%c)\n\n\n",game_player1.name,game_player1.symbol,game_player2.name,game_player2.symbol);
+     	printf("\n\n");
+     	printf("%s:- (%c)\n%s:-  (%c)\n\n\n",game_player1.name,game_player1.symbol,game_player2.name,game_player2.symbol);
 
         printf("  %c |  %c | %c\n", game_board[0], game_board[1], game_board[2]);
         printf("    |    |    \n");
