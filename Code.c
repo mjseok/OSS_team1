@@ -25,7 +25,7 @@ int checkDraw(char game_board[]);
 void showBoard(char game_board[]);
 void enterName(void);
 int changePlayer(int current_player);
-void showResult(FILE *leaderboard, int game_state, int current_player);
+void showResult(FILE* leaderboard, int game_state, int current_player);
 int checkSomeoneWin(char game_board[]);
 void playWithFriend();
 //void playWithComputer();
@@ -39,6 +39,7 @@ int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, c
 int checkComputer(char game_board[], char computer_symbol, char player_symbol);
 int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
 void playWithComputer(void);
+int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player);//
 
 Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
@@ -50,7 +51,7 @@ int main(void)
 	chooseMenu();
 }
 
-void showResult(FILE *leaderboard, int game_state, int current_player)
+void showResult(FILE* leaderboard, int game_state, int current_player)
 {
 	const int someone_win = 1;
 	if (game_state == someone_win)
@@ -120,7 +121,7 @@ int checkDraw(char game_board[])
 {
 	const int draw_complete = -1;
 	const int draw_fail = 0;
-	
+
 	if (game_board[0] != '1' && game_board[1] != '2' && game_board[2] != '3' && game_board[3] != '4' && game_board[4] != '5' && game_board[5] != '6' && game_board[6] != '7' && game_board[7] != '8' && game_board[8] != '9')
 		return draw_complete;
 	else
@@ -138,8 +139,8 @@ void showLeaderBoard() {
 	printf("Player1\t|Player2|Winner|\n");
 	printf("-------------------------\n");
 
-	FILE *leaderboard = fopen("leaderboard.txt", "r");
-	while(c!=EOF)
+	FILE* leaderboard = fopen("leaderboard.txt", "r");
+	while (c != EOF)
 	{
 
 		c = (char)(getc(leaderboard));
@@ -159,7 +160,10 @@ void showBoard(char game_board[])
 	system("cls");
 	printf("\tTic-Tac-Toe\n\n");
 	printf("\n\n");
-	printf("%s:- (%c)\n%s:-  (%c)\n\n\n", player1.name, player1.symbol, player2.name, player2.symbol);
+	if (strcmp(player1.name, "\0") == 0)
+		printf("Player:- (0)\nComputer:-  (X)\n\n\n");
+	else
+		printf("%s:- (%c)\n%s:-  (%c)\n\n\n", player1.name, player1.symbol, player2.name, player2.symbol);
 
 	printf("  %c |  %c | %c\n", game_board[0], game_board[1], game_board[2]);
 	printf("    |    |    \n");
@@ -243,12 +247,13 @@ void playWithFriend() {
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
 	char symbol;
 	int current_player = 1;
-	FILE *leaderboard = fopen("leaderboard.txt", "a+");
+	FILE* leaderboard = fopen("leaderboard.txt", "a+");
 
 	enterName();
 	chooseSymbol();
 	system("color fc");
 	showBoard(board_symbol);
+
 
 	while (game_state == keepGoing)
 	{
@@ -289,7 +294,7 @@ int checkposition(char board_position[], char board_symbol[], char symbol, int c
 				current_player = changePlayer(current_player);
 				break;
 			}
-			else 
+			else
 			{
 				printf("Wrong Selection\n");
 				Sleep(1000);
@@ -309,7 +314,7 @@ int checkVacancies(int i, char board_symbol[])
 	const int not_vacancy = 0;
 
 	if (board_symbol[i] == i + '1')
-       	{
+	{
 		return vacancy;
 	}
 	else
@@ -338,7 +343,7 @@ int checkSomeoneWin(char game_board[])
 	const int someone_win = 1;
 	const int draw = -1;
 	const int game_continue = 0;
-	
+
 	if (checkHorizontal(game_board))
 	{
 		return someone_win;
@@ -361,7 +366,7 @@ int checkSomeoneWin(char game_board[])
 	}
 }
 
-void chooseMenu() 
+void chooseMenu()
 {
 	const char* gotoTwoPlayerGame = "1";
 	const char* gotoComputerGame = "2";
@@ -371,29 +376,29 @@ void chooseMenu()
 	char menu_option[10];
 
 	while (!insert_error)
-       	{
+	{
 		printf("\n\nPress 1 to play with friend\nPress 2 to play with computer\nPress 3 to show LeaderBoard\nPress 4 to quit Game\n--> ");
 		scanf("%s", menu_option);
-		if (strcmp(menu_option, gotoTwoPlayerGame) == 0) 
+		if (strcmp(menu_option, gotoTwoPlayerGame) == 0)
 		{
 			playWithFriend();
 			break;
 		}
-		else if (strcmp(menu_option, gotoComputerGame) == 0) 
+		else if (strcmp(menu_option, gotoComputerGame) == 0)
 		{
 			playWithComputer();
 			break;
 		}
-		else if (strcmp(menu_option, gotoLeaderBoard) == 0) 
+		else if (strcmp(menu_option, gotoLeaderBoard) == 0)
 		{
 			showLeaderBoard();
 			break;
 		}
-		else if (strcmp(menu_option, quitGame) == 0) 
+		else if (strcmp(menu_option, quitGame) == 0)
 		{
 			quit();
 		}
-		else 
+		else
 		{
 			printf("\nWrong insert. Press Again!");
 		}
@@ -403,10 +408,10 @@ void chooseMenu()
 
 int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol)
 {
-	if(game_board[index1] == symbol && game_board[index2] == symbol)
+	if (game_board[index1] == symbol && game_board[index2] == symbol)
 	{
 		//아래의 'o'와 'x'를 컴퓨터의 기호와 플레이어의 기호로 바꿔주세요
-		if(game_board[index3] != 'o' && game_board[index3] != 'x')
+		if (game_board[index3] != 'o' && game_board[index3] != 'x')
 		{
 			return index3;
 		}
@@ -419,11 +424,11 @@ int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, c
 	int proper_index = 0;
 
 	proper_index = checkValueOnComputer(game_board, index1, index2, index3, symbol);
-	if(proper_index)
+	if (proper_index)
 		return proper_index;
 
 	proper_index = checkValueOnComputer(game_board, index2, index3, index1, symbol);
-	if(proper_index)
+	if (proper_index)
 		return proper_index;
 
 	proper_index = checkValueOnComputer(game_board, index1, index3, index2, symbol);
@@ -436,9 +441,9 @@ int findBlankForComputer(char game_board[], char computer_symbol, char player_sy
 	int i;
 	int computer_index = 0;
 
-	for(i = 0; i <9; i++)
+	for (i = 0; i < 9; i++)
 	{
-		if(game_board[i] != computer_symbol && game_board[i] != player_symbol)
+		if (game_board[i] != computer_symbol && game_board[i] != player_symbol)
 		{
 			computer_index = i;
 			return computer_index;
@@ -449,23 +454,23 @@ int findBlankForComputer(char game_board[], char computer_symbol, char player_sy
 
 int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 {
-	int winning_case[8][3] = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8},{0, 4, 8}, {2, 4, 6}};
-       	int final_index = 0;
+	int winning_case[8][3] = { { 0, 1, 2 },{ 3, 4, 5 },{ 6, 7, 8 },{ 0, 3, 6 },{ 1, 4, 7 },{ 2, 5, 8 },{ 0, 4, 8 },{ 2, 4, 6 } };
+	int final_index = 0;
 	int i;
 
 	//Find the case that the computer wins
-	for(i = 0; i <8; i++)
+	for (i = 0; i < 8; i++)
 	{
 		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], computer_symbol);
-		if(final_index)
+		if (final_index)
 			return final_index;
 	}
 
 	//Find the case that computer loses
-	for(i = 0; i < 8; i++)
+	for (i = 0; i < 8; i++)
 	{
 		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], player_symbol);
-		if(final_index)
+		if (final_index)
 			return final_index;
 	}
 
@@ -489,91 +494,89 @@ void playWithComputer()
 	char computer_symbol = 'x';
 
 
-system("color fc");
+	system("color fc");
 
-showBoard(board_symbol);
+	showBoard(board_symbol);
+	while (game_state == keepGoing)
+	{
 
-while (game_state == keepGoing)
-{
-if (current_player % 2)
-{
-current_player = player1_turn;
-}
-else
-{
-current_player = player2_turn;
-}
+		if (current_player == player1_turn)
+		{
+			symbol = player_symbol;
+		}
+		else
+		{
+			symbol = computer_symbol;
+		}
 
-if (current_player == player1_turn)
-{
-symbol = player_symbol;
-}
-else
-{
-symbol = computer_symbol;
-}
+		if (current_player == player1_turn)
+		{
+			printf("Type any digit from 1-9 to fill your response:- ");
+			scanf("%s", board_position);
+			current_player = checkposition2(board_position, board_symbol, player_symbol, current_player);
 
-if (current_player == player1_turn)
-{
-printf("Type any digit from 1-9 to fill your response:- ");
-scanf("%s", board_position);
-if (strcmp(board_position, "1") == 0 && board_symbol[0] == '1')
-board_symbol[0] = symbol;
-else if (strcmp(board_position, "2") == 0 && board_symbol[1] == '2')
-board_symbol[1] = symbol;
-else if (strcmp(board_position, "3") == 0 && board_symbol[2] == '3')
-board_symbol[2] = symbol;
-else if (strcmp(board_position, "4") == 0 && board_symbol[3] == '4')
-board_symbol[3] = symbol;
-else if (strcmp(board_position, "5") == 0 && board_symbol[4] == '5')
-board_symbol[4] = symbol;
-else if (strcmp(board_position, "6") == 0 && board_symbol[5] == '6')
-board_symbol[5] = symbol;
-else if (strcmp(board_position, "7") == 0 && board_symbol[6] == '7')
-board_symbol[6] = symbol;
-else if (strcmp(board_position, "8") == 0 && board_symbol[7] == '8')
-board_symbol[7] = symbol;
-else if (strcmp(board_position, "9") == 0 && board_symbol[8] == '9')
-board_symbol[8] = symbol;
-else
-{
-printf("Wrong Selection\n");
-Sleep(1000);
-current_player--;
-}
-}
-else
-{
-computer = checkComputer(board_symbol, computer_symbol, player_symbol);
-if (!computer)
-{
-computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
-}
-board_symbol[computer] = symbol;
-printf("Computer select %d\n", computer + 1);
-Sleep(1000);
+		}
+		else
+		{
+			computer = checkComputer(board_symbol, computer_symbol, player_symbol);
+			if (!computer)
+			{
+				computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
+			}
+			board_symbol[computer] = symbol;
+			printf("Computer select %d\n", computer + 1);
+			Sleep(1000);
+			current_player = checkposition2(board_position, board_symbol, player_symbol, current_player);
 
+		}
+
+		game_state = checkSomeoneWin(board_symbol);
+		//current_player++;
+		showBoard(board_symbol);
+	}
+	//showResult(leaderboard, game_state, current_player);
+	if (game_state == someoneWin)
+	{
+		printf("\n\nSomeone Wins!\n\n");
+	}
+	else
+	{
+		printf("\n\nGame Draws!\n\n");
+	}
+
+	//fclose(leaderboard);
 }
 
-game_state = checkSomeoneWin(board_symbol);
-current_player++;
-showBoard(board_symbol);
+int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player) {
+
+	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
+	int flag = 1;
+
+	if (current_player == 2)
+		return flag;
+
+	for (int i = 0; i < 9; i++)
+	{
+		if (strcmp(check_position[i], board_position) == 0)
+		{
+			flag = 2;
+			if (checkVacancies(i, board_symbol))
+			{
+				board_symbol[i] = symbol;
+				//current_player = changePlayer(current_player);
+				break;
+			}
+			else
+			{
+				printf("Wrong Selection\n");
+				Sleep(1000);
+			}
+		}
+	}
+	if (flag == 1) {
+		printf("Wrong Selection\n");
+		Sleep(1000);
+	}
+	return flag;
+
 }
-//showResult(leaderboard, game_state, current_player);
-if (game_state == someoneWin)
-{
-printf("\n\nSomeone Wins!\n\n");
-}
-else
-{
-printf("\n\nGame Draws!\n\n");
-}
-
-//fclose(leaderboard);
-}
-
-
-
-
-
-
