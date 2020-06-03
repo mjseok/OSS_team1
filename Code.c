@@ -271,11 +271,11 @@ void chooseSymbol(void)
 {
 	char dec[10];
 	int insert_error = 1;
-	int right_input;
-	
-	printf("\n\nPlayer1 %s choose the X or O:", player1.name);
+	int right_input;	
 
-	while (insert_error) {
+	while (insert_error) 
+	{
+		printf("\n\nPlayer1 %s choose the X or O:", player1.name);
 		scanf("%s", dec);
 		right_input = setSymbol(dec);
 		if(right_input)
