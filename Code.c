@@ -379,35 +379,6 @@ void playWithFriend(void) {
 	fclose(leaderboard);
 }
 
-int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player) {
-
-	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
-	int flag = 0;
-
-	for (int i = 0; i < 9; i++)
-	{
-		if (strcmp(check_position[i], board_position) == 0)
-		{
-			flag = 1;
-			if (checkVacancies(i, board_symbol))
-			{
-				board_symbol[i] = symbol;
-				current_player = changePlayer(current_player);
-				break;
-			}
-			else
-			{
-				printf("Wrong Selection\n");
-				Sleep(1000);
-			}
-		}
-	}
-	if (flag == 0) {
-		printf("Wrong Selection\n");
-		Sleep(1000);
-	}
-	return current_player;
-}
 
 int checkVacancies(int i, char board_symbol[])
 {
@@ -574,90 +545,87 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 
 	return final_index;
 }
-
 void playWithComputer(void)
 {
+   char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
+   char board_position[10];
+   const int keepGoing = 0;
+   int game_state = 0;
+   int current_player = 1;
+   char symbol;
+   const int someoneWin = 1;
+   int computer;
+   char player_symbol = 'o';
+   char computer_symbol = 'x';
 
-	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
-	char board_position[10];
-	const int keepGoing = 0;
-	int game_state = 0;
-	int current_player = 1;
-	char symbol;
-	const int someoneWin = 1;
-	int computer;
-	char player_symbol = 'o';
-	char computer_symbol = 'x';
+   system("color fc");
 
+   showBoard(board_symbol);
+   while (game_state == keepGoing)
+   {
+      if (current_player == player1_turn)
+      {
+         symbol = player_symbol;
+         printf("Type any digit from 1-9 to fill your response:- ");
+         scanf("%s", board_position);
+         current_player = checkPosition(board_position, board_symbol, player_symbol, current_player);
+      }
+      else
+      {
+         symbol = computer_symbol;
+         computer = checkComputer(board_symbol, computer_symbol, player_symbol);
+         if (!computer)
+         {
+            computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
+         }
+         board_symbol[computer] = symbol;
+         printf("Computer select %d\n", computer + 1);
+         Sleep(1000);
+         current_player = changePlayer(current_player);
+      }
 
-	system("color fc");
+      game_state = checkSomeoneWin(board_symbol);
+      showBoard(board_symbol);
 
-	showBoard(board_symbol);
-	while (game_state == keepGoing)
-	{
-		if (current_player == player1_turn)
-		{
-			symbol = player_symbol;
-			printf("Type any digit from 1-9 to fill your response:- ");
-			scanf("%s", board_position);
-		}
-		else
-		{
-			symbol = computer_symbol;
-			computer = checkComputer(board_symbol, computer_symbol, player_symbol);
-			if (!computer)
-			{
-				computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
-			}
-			board_symbol[computer] = symbol;
-			printf("Computer select %d\n", computer + 1);
-			Sleep(1000);
-		}
-		current_player = checkposition2(board_position, board_symbol, player_symbol, current_player);
-		
-		game_state = checkSomeoneWin(board_symbol);
-		showBoard(board_symbol);
-	}
-	
-	if (game_state == someoneWin)
-	{
-		printf("\n\nSomeone Wins!\n\n");
-	}
-	else
-	{
-		printf("\n\nGame Draws!\n\n");
-	}
+   }
 
+   if (game_state == someoneWin)
+   {
+      printf("\n\nSomeone Wins!\n\n");
+   }
+   else
+   {
+      printf("\n\nGame Draws!\n\n");
+   }
 }
 
-int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player) {
 
-	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
-	int flag = player1_turn;
 
-	if (current_player == 2)
-		return flag;
 
-	for (int i = 0; i < 9; i++)
-	{
-		if (strcmp(check_position[i], board_position) == 0)
-		{
-			if (checkVacancies(i, board_symbol))
-			{
-				board_symbol[i] = symbol;
-				flag = player2_turn;
-			}
-			else
-			{
-				printf("Wrong Selection\n");
-				Sleep(1000);
-				return flag;
-			}
-		}
-	}
-	if (flag == 1) {
-		printf("Wrong Selection\n");
-		Sleep(1000);
-	}
-	return flag;
+
+
+int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player) {
+   char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
+   int check_proper_position = 0;
+   const int proper_position = 1;
+   const int improper_position = 0;
+   for (int i = 0; i < 9; i++)
+   {
+      if (strcmp(check_position[i], board_position) == 0)
+      {
+         if (checkVacancies(i, board_symbol))
+         {
+            check_proper_position = proper_position;
+            board_symbol[i] = symbol;
+            current_player = changePlayer(current_player);
+            break;
+         }
+      }
+   }
+
+   if (check_proper_position == improper_position) {
+      printf("Wrong Selection\n");
+      Sleep(1000);
+   }
+   return current_player;
 }
