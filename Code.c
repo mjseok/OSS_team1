@@ -56,7 +56,8 @@ int main(void)
 }
 
 void checkFile(FILE *file) {
-	if (file == NULL){
+	if (file == NULL)
+	{
 		printf("File doesn't linked!\n");
 	}
 }
