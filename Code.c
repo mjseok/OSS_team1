@@ -17,7 +17,7 @@ typedef struct
 
 void chooseMenu(void);
 void showRule(void);
-void chooseSymbol();
+void chooseSymbol(void);
 int checkHorizontal(char game_board[]);
 int checkVertical(char game_board[]);
 int checkDiagonal(char game_board[]);
@@ -27,12 +27,14 @@ void enterName(void);
 int changePlayer(int current_player);
 void showResult(FILE* leaderboard, int game_state, int current_player);
 int checkSomeoneWin(char game_board[]);
-void playWithFriend();
-//void playWithComputer();
+void playWithFriend(void);
 void showLeaderBoard(void);
 void quit(void);
-int checkposition(char board_position[], char board_symbol[], char symbol, int current_player);
+int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player);
 int checkVacancies(int i, char board_symbol[]);
+void checkTurn(int current_player);
+char checkSymbol(int current_player);
+void checkFile(FILE *file);
 
 int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
 int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
@@ -43,6 +45,8 @@ int checkposition2(char board_position[], char board_symbol[], char symbol, int 
 
 Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
+const int player1_turn = 1;
+const int player2_turn = 2;
 
 int main(void)
 {
@@ -51,12 +55,40 @@ int main(void)
 	chooseMenu();
 }
 
+void checkFile(FILE *file) {
+	if (file == NULL){
+		printf("File doesn't linked!\n");
+	}
+}
+
+char checkSymbol(int current_player) {
+	if (current_player == player1_turn)
+	{
+		return player1.symbol;
+	}
+	else
+	{
+		return player2.symbol;
+	}
+}
+
+void checkTurn(int current_player) {
+
+	if (current_player == player1_turn)
+	{
+		printf("%s Type any digit from 1-9 to fill your response:- ", player1.name);
+	}
+	else
+	{
+		printf("%s Type any digit from 1-9 to fill your response:- ", player2.name);
+	}
+}
 void showResult(FILE* leaderboard, int game_state, int current_player)
 {
 	const int someone_win = 1;
 	if (game_state == someone_win)
 	{
-		if (current_player == 2)
+		if (current_player == player2_turn)
 		{
 			printf("\n\nPlayer1 %s Wins!\n\n", player1.name);
 			fprintf(leaderboard, "%s\t%s\t%s\n", player1.name, player2.name, player1.name);
@@ -71,7 +103,7 @@ void showResult(FILE* leaderboard, int game_state, int current_player)
 	else
 	{
 		printf("\n\nGame Draws!\n\n");
-		fprintf(leaderboard, "\t%s", "DRAW");
+		fprintf(leaderboard, "%s\t%s\t%s\n", player1.name, player2.name, "DRAW");
 		fclose(leaderboard);
 	}
 }
@@ -119,16 +151,20 @@ int checkDiagonal(char game_board[])
 
 int checkDraw(char game_board[])
 {
-	const int draw_complete = -1;
+	const int draw_complete = 1;
 	const int draw_fail = 0;
+	for (int i = 0; i < 9; i++)
+	{
+		if (game_board[i] == i + '1')
+		{
+			return draw_fail;
+		}
+	}
+	return draw_complete;
 
-	if (game_board[0] != '1' && game_board[1] != '2' && game_board[2] != '3' && game_board[3] != '4' && game_board[4] != '5' && game_board[5] != '6' && game_board[6] != '7' && game_board[7] != '8' && game_board[8] != '9')
-		return draw_complete;
-	else
-		return draw_fail;
 }
 
-void showLeaderBoard() {
+void showLeaderBoard(void) {
 	char c = '\0';
 	int insert_error = 1;
 
@@ -142,7 +178,6 @@ void showLeaderBoard() {
 	FILE* leaderboard = fopen("leaderboard.txt", "r");
 	while (c != EOF)
 	{
-
 		c = (char)(getc(leaderboard));
 		printf("%c", c);
 	}
@@ -150,7 +185,7 @@ void showLeaderBoard() {
 	chooseMenu();
 }
 
-void quit() {
+void quit(void) {
 	printf("\nBye~~\n");
 	exit(1);
 }
@@ -193,7 +228,7 @@ void showRule(void)
 	}
 }
 
-void chooseSymbol()
+void chooseSymbol(void)
 {
 	char dec[10];
 	int insert_error = 1;
@@ -221,7 +256,7 @@ void chooseSymbol()
 	}
 }
 
-void enterName()
+void enterName(void)
 {
 	printf("\nEnter name of player1: ");
 	scanf("%s", player1.name);
@@ -237,11 +272,10 @@ void enterName()
 	}
 }
 
-void playWithFriend() {
+void playWithFriend(void) {
 	const int keepGoing = 0;
 	int game_state = 0;
-	const int player1_turn = 1;
-	const int player2_turn = 2;
+	
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	char board_position[100];
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
@@ -254,23 +288,13 @@ void playWithFriend() {
 	system("color fc");
 	showBoard(board_symbol);
 
-
 	while (game_state == keepGoing)
 	{
-		if (current_player == player1_turn)
-			printf("%s Type any digit from 1-9 to fill your response:- ", player1.name);
-		else
-			printf("%s Type any digit from 1-9 to fill your response:- ", player2.name);
-		scanf("%s", board_position);
-		if (current_player == player1_turn)
-		{
-			symbol = player1.symbol;
-		}
-		else
-		{
-			symbol = player2.symbol;
-		}
-		current_player = checkposition(board_position, board_symbol, symbol, current_player);
+		checkTurn(current_player);
+		scanf("%s"board_position);
+		symbol = checkSymbol(current_player);
+		
+		current_player = checkPosition(board_position, board_symbol, symbol, current_player);
 		game_state = checkSomeoneWin(board_symbol);
 		showBoard(board_symbol);
 	}
@@ -278,7 +302,7 @@ void playWithFriend() {
 	fclose(leaderboard);
 }
 
-int checkposition(char board_position[], char board_symbol[], char symbol, int current_player) {
+int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player) {
 
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
 	int flag = 0;
@@ -325,8 +349,6 @@ int checkVacancies(int i, char board_symbol[])
 
 int changePlayer(int current_player)
 {
-	const int player1_turn = 1;
-	const int player2_turn = 2;
 
 	if (current_player == player1_turn)
 	{
@@ -366,7 +388,7 @@ int checkSomeoneWin(char game_board[])
 	}
 }
 
-void chooseMenu()
+void chooseMenu(void)
 {
 	const char* gotoTwoPlayerGame = "1";
 	const char* gotoComputerGame = "2";
@@ -477,7 +499,7 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 	return final_index;
 }
 
-void playWithComputer()
+void playWithComputer(void)
 {
 
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
@@ -485,8 +507,6 @@ void playWithComputer()
 	const int keepGoing = 0;
 	int game_state = 0;
 	int current_player = 1;
-	const int player1_turn = 1;
-	const int player2_turn = 2;
 	char symbol;
 	const int someoneWin = 1;
 	int computer;
