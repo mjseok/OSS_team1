@@ -595,25 +595,15 @@ void playWithComputer(void)
 	showBoard(board_symbol);
 	while (game_state == keepGoing)
 	{
-
 		if (current_player == player1_turn)
 		{
 			symbol = player_symbol;
+			printf("Type any digit from 1-9 to fill your response:- ");
+			scanf("%s", board_position);
 		}
 		else
 		{
 			symbol = computer_symbol;
-		}
-
-		if (current_player == player1_turn)
-		{
-			printf("Type any digit from 1-9 to fill your response:- ");
-			scanf("%s", board_position);
-			current_player = checkposition2(board_position, board_symbol, player_symbol, current_player);
-
-		}
-		else
-		{
 			computer = checkComputer(board_symbol, computer_symbol, player_symbol);
 			if (!computer)
 			{
@@ -622,15 +612,13 @@ void playWithComputer(void)
 			board_symbol[computer] = symbol;
 			printf("Computer select %d\n", computer + 1);
 			Sleep(1000);
-			current_player = checkposition2(board_position, board_symbol, player_symbol, current_player);
-
 		}
-
+		current_player = checkposition2(board_position, board_symbol, player_symbol, current_player);
+		
 		game_state = checkSomeoneWin(board_symbol);
-		//current_player++;
 		showBoard(board_symbol);
 	}
-	//showResult(leaderboard, game_state, current_player);
+	
 	if (game_state == someoneWin)
 	{
 		printf("\n\nSomeone Wins!\n\n");
@@ -640,13 +628,12 @@ void playWithComputer(void)
 		printf("\n\nGame Draws!\n\n");
 	}
 
-	//fclose(leaderboard);
 }
 
 int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player) {
 
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
-	int flag = 1;
+	int flag = player1_turn;
 
 	if (current_player == 2)
 		return flag;
@@ -655,17 +642,16 @@ int checkposition2(char board_position[], char board_symbol[], char symbol, int 
 	{
 		if (strcmp(check_position[i], board_position) == 0)
 		{
-			flag = 2;
 			if (checkVacancies(i, board_symbol))
 			{
 				board_symbol[i] = symbol;
-				//current_player = changePlayer(current_player);
-				break;
+				flag = player2_turn;
 			}
 			else
 			{
 				printf("Wrong Selection\n");
 				Sleep(1000);
+				return flag;
 			}
 		}
 	}
@@ -674,5 +660,4 @@ int checkposition2(char board_position[], char board_symbol[], char symbol, int 
 		Sleep(1000);
 	}
 	return flag;
-
 }
