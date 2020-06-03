@@ -29,19 +29,24 @@ void showResult(FILE* leaderboard, int game_state, int current_player);
 int checkSomeoneWin(char game_board[]);
 void playWithFriend(void);
 void showLeaderBoard(void);
+
+
 void quit(void);
 int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player);
 int checkVacancies(int i, char board_symbol[]);
 void checkTurn(int current_player);
 char checkSymbol(int current_player);
-void checkFile(FILE *file);
+void checkFile(FILE* file);
 
 int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
 int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol);
 int checkComputer(char game_board[], char computer_symbol, char player_symbol);
 int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
 void playWithComputer(void);
-int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player);//
+int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player);
+int setSymbol(char* player1_symbol);
+int isRight(char* player_symbol, char* capital_letter, char* small_letter);
+int isIndexValueSame(char game_board[], int index1, int index2, int index3);
 
 Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
@@ -55,7 +60,7 @@ int main(void)
 	chooseMenu();
 }
 
-void checkFile(FILE *file) {
+void checkFile(FILE* file) {
 	if (file == NULL)
 	{
 		printf("File doesn't linked!\n");
@@ -109,16 +114,38 @@ void showResult(FILE* leaderboard, int game_state, int current_player)
 	}
 }
 
+int isIndexValueSame(char game_board[], int index1, int index2, int index3)
+{
+	const int same_values = 1;
+	const int differ_values = 0;
+
+	if (game_board[index1] == game_board[index2])
+	{
+		if (game_board[index2] == game_board[index3])
+		{
+			return same_values;
+		}
+	}
+	return differ_values;
+}
+
 int checkHorizontal(char game_board[])
 {
 	const int horizontal_complete = 1;
 	const int horizontal_fail = 0;
-	if (game_board[0] == game_board[1] && game_board[1] == game_board[2])
+
+	if (isIndexValueSame(game_board, 0, 1, 2))
+	{
 		return horizontal_complete;
-	else if (game_board[3] == game_board[4] && game_board[4] == game_board[5])
+	}
+	else if (isIndexValueSame(game_board, 3, 4, 5))
+	{
 		return horizontal_complete;
-	else if (game_board[6] == game_board[7] && game_board[7] == game_board[8])
+	}
+	else if (isIndexValueSame(game_board, 6, 7, 8))
+	{
 		return horizontal_complete;
+	}
 	else
 		return horizontal_fail;
 }
@@ -128,12 +155,18 @@ int checkVertical(char game_board[])
 	const int vertical_complete = 1;
 	const int vertical_fail = 0;
 
-	if (game_board[0] == game_board[3] && game_board[3] == game_board[6])
+	if (isIndexValueSame(game_board, 0, 3, 6))
+	{
 		return vertical_complete;
-	else if (game_board[1] == game_board[4] && game_board[4] == game_board[7])
+	}
+	else if (isIndexValueSame(game_board, 1, 4, 7))
+	{
 		return vertical_complete;
-	else if (game_board[2] == game_board[5] && game_board[5] == game_board[8])
+	}
+	else if (isIndexValueSame(game_board, 2, 5, 8))
+	{
 		return vertical_complete;
+	}
 	else
 		return vertical_fail;
 }
@@ -142,10 +175,15 @@ int checkDiagonal(char game_board[])
 {
 	const int diagonal_complete = 1;
 	const int diagonal_fail = 0;
-	if (game_board[0] == game_board[4] && game_board[4] == game_board[8])
+
+	if (isIndexValueSame(game_board, 0, 4, 8))
+	{
 		return diagonal_complete;
-	else if (game_board[2] == game_board[4] && game_board[4] == game_board[6])
+	}
+	else if (isIndexValueSame(game_board, 2, 4, 6))
+	{
 		return diagonal_complete;
+	}
 	else
 		return diagonal_fail;
 }
@@ -233,28 +271,66 @@ void chooseSymbol(void)
 {
 	char dec[10];
 	int insert_error = 1;
-	printf("\n\nPlayer1 %s choose the X or 0:", player1.name);
+	int right_input;
+	
+	printf("\n\nPlayer1 %s choose the X or O:", player1.name);
 
 	while (insert_error) {
 		scanf("%s", dec);
-		if (strcmp(dec, "X") == 0 || strcmp(dec, "x") == 0)
+		right_input = setSymbol(dec);
+		if(right_input)
 		{
-			player1.symbol = 'X';
-			player2.symbol = '0';
-			insert_error = 0;
-		}
-		else if (strcmp(dec, "O") == 0 || strcmp(dec, "o") == 0)
-		{
-			player1.symbol = '0';
-			player2.symbol = 'X';
 			insert_error = 0;
 		}
 		else
 		{
 			printf("Please enter either X or O only \n\n");
-
 		}
 	}
+}
+
+int isRight(char* player_symbol, char* capital_letter, char* small_letter)
+{
+	int string_same;
+
+	string_same = strcmp(player_symbol, capital_letter);
+	if (string_same == 0)
+	{
+		return 1;
+	}
+
+	string_same = strcmp(player_symbol, small_letter);
+	if (string_same == 0)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+int setSymbol(char* player1_symbol)
+{
+	int is_player_symbol;
+	const int complete = 1;
+	const int fail = 0;
+	
+	is_player_symbol = isRight(player1_symbol, "X", "x");
+	if(is_player_symbol)
+	{
+		player1.symbol = 'X';
+		player2.symbol = 'O';
+		return complete;
+	}
+
+	is_player_symbol = isRight(player1_symbol, "O", "o");
+	if (is_player_symbol)
+	{
+		player1.symbol = 'O';
+		player2.symbol = 'X';
+		return complete;
+	}
+
+	return fail;
 }
 
 void enterName(void)
@@ -276,7 +352,7 @@ void enterName(void)
 void playWithFriend(void) {
 	const int keepGoing = 0;
 	int game_state = 0;
-	
+
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	char board_position[100];
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
@@ -292,9 +368,9 @@ void playWithFriend(void) {
 	while (game_state == keepGoing)
 	{
 		checkTurn(current_player);
-		scanf("%s",board_position);
+		scanf("%s", board_position);
 		symbol = checkSymbol(current_player);
-		
+
 		current_player = checkPosition(board_position, board_symbol, symbol, current_player);
 		game_state = checkSomeoneWin(board_symbol);
 		showBoard(board_symbol);
@@ -433,7 +509,7 @@ int checkValueOnComputer(char game_board[], int index1, int index2, int index3, 
 {
 	if (game_board[index1] == symbol && game_board[index2] == symbol)
 	{
-		//아래의 'o'와 'x'를 컴퓨터의 기호와 플레이어의 기호로 바꿔주세요
+		//\BEƷ\A1\C0\C7 'o'\BF\CD 'x'\B8\A6 \C4\C4ǻ\C5\CD\C0\C7 \B1\E2ȣ\BF\CD \C7÷\B9\C0̾\EE\C0\C7 \B1\E2ȣ\B7\CE \B9ٲ\E3\C1ּ\BC\BF\E4
 		if (game_board[index3] != 'o' && game_board[index3] != 'x')
 		{
 			return index3;
