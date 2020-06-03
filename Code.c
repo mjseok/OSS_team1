@@ -291,7 +291,7 @@ void playWithFriend(void) {
 	while (game_state == keepGoing)
 	{
 		checkTurn(current_player);
-		scanf("%s"board_position);
+		scanf("%s",board_position);
 		symbol = checkSymbol(current_player);
 		
 		current_player = checkPosition(board_position, board_symbol, symbol, current_player);
