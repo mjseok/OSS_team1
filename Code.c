@@ -509,7 +509,6 @@ int checkValueOnComputer(char game_board[], int index1, int index2, int index3, 
 {
 	if (game_board[index1] == symbol && game_board[index2] == symbol)
 	{
-		//\BEƷ\A1\C0\C7 'o'\BF\CD 'x'\B8\A6 \C4\C4ǻ\C5\CD\C0\C7 \B1\E2ȣ\BF\CD \C7÷\B9\C0̾\EE\C0\C7 \B1\E2ȣ\B7\CE \B9ٲ\E3\C1ּ\BC\BF\E4
 		if (game_board[index3] != 'o' && game_board[index3] != 'x')
 		{
 			return index3;
