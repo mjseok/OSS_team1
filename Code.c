@@ -377,7 +377,7 @@ void playWithFriend(void) {
 		game_state = checkSomeoneWin(board_symbol);
 		showBoard(board_symbol);
 	}
-	showResult(leaderboard, game_state, current_player);
+	showResult(game_state, current_player);
 }
 
 
