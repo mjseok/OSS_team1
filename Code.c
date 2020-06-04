@@ -164,14 +164,14 @@ void showResult(int game_state, int current_player)
 		if (current_player == player2_turn)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-			printf("\n★★★Player1 %s Wins!★★★\n\n", player1.name);
+			printf("\n★★★★★ %s Wins ★★★★★\n\n", player1.name);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			fprintf(leaderboard, "%s\n", player1.name);
 		}
 		else
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-			printf("\n★★★Player2 %s Wins!★★★\n\n", player2.name);
+			printf("\n★★★★★ %s Wins ★★★★★\n\n", player2.name);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			fprintf(leaderboard, "%s\n", player2.name);
 		}
