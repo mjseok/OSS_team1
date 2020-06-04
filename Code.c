@@ -9,7 +9,7 @@ Author:- Mishal Shah
 #pragma warning (disable:4996)
 #define _CRT_SECURE_NO_WARNINGS
 
-typedef struct
+typedef struct player_information
 {
 	char symbol;
 	char name[50];
@@ -42,7 +42,6 @@ int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, c
 int checkComputer(char game_board[], char computer_symbol, char player_symbol);
 int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
 void playWithComputer(void);
-int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player);
 int setSymbol(char* player1_symbol);
 int isRight(char* player_symbol, char* capital_letter, char* small_letter);
 int isIndexValueSame(char game_board[], int index1, int index2, int index3);
@@ -51,6 +50,9 @@ Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
 const int player1_turn = 1;
 const int player2_turn = 2;
+const int success =1;
+const int failure = 0;
+
 
 int main(void)
 {
@@ -133,81 +135,69 @@ int isIndexValueSame(char game_board[], int index1, int index2, int index3)
 
 int checkHorizontal(char game_board[])
 {
-	const int horizontal_complete = 1;
-	const int horizontal_fail = 0;
-
 	if (isIndexValueSame(game_board, 0, 1, 2))
 	{
-		return horizontal_complete;
+		return success;
 	}
 	else if (isIndexValueSame(game_board, 3, 4, 5))
 	{
-		return horizontal_complete;
+		return success;
 	}
 	else if (isIndexValueSame(game_board, 6, 7, 8))
 	{
-		return horizontal_complete;
+		return success;
 	}
 	else
-		return horizontal_fail;
+		return failure;
 }
 
 int checkVertical(char game_board[])
 {
-	const int vertical_complete = 1;
-	const int vertical_fail = 0;
-
 	if (isIndexValueSame(game_board, 0, 3, 6))
 	{
-		return vertical_complete;
+		return success;
 	}
 	else if (isIndexValueSame(game_board, 1, 4, 7))
 	{
-		return vertical_complete;
+		return success;
 	}
 	else if (isIndexValueSame(game_board, 2, 5, 8))
 	{
-		return vertical_complete;
+		return success;
 	}
 	else
-		return vertical_fail;
+		return failure;
 }
 
 int checkDiagonal(char game_board[])
 {
-	const int diagonal_complete = 1;
-	const int diagonal_fail = 0;
-
 	if (isIndexValueSame(game_board, 0, 4, 8))
 	{
-		return diagonal_complete;
+		return success;
 	}
 	else if (isIndexValueSame(game_board, 2, 4, 6))
 	{
-		return diagonal_complete;
+		return success;
 	}
 	else
-		return diagonal_fail;
+		return failure;
 }
 
 int checkDraw(char game_board[])
 {
-	const int draw_complete = 1;
-	const int draw_fail = 0;
 	for (int i = 0; i < 9; i++)
 	{
 		if (game_board[i] == i + '1')
 		{
-			return draw_fail;
+			return failure;
 		}
 	}
-	return draw_complete;
+	return success;
 
 }
 
 void showLeaderBoard(void) {
 	char c = '\0';
-	int insert_error = 1;
 
 	system("cls");
 	printf("\n\n");
@@ -255,7 +245,7 @@ void showBoard(char game_board[])
 
 void showRule(void)
 {
-	char link[10];
+	char more_rule[10];
 	printf("\tTic-Tac-Toe\n\n");
 	printf("Welcome to the most played 2D game and a sort of fun using X and O\n\n");
 	printf("Rules:-\n");
@@ -263,8 +253,8 @@ void showRule(void)
 	printf("\n2:Player who gets a combination of 3 same characters either diagonal or horizontally or \n  vertically will be declared as the winner");
 	printf("\n\nEnjoy the game! Be a Winner!\n\n");
 	printf("For more clarifications press Y else type any other character:- ");
-	scanf("%[^\n]s", link);
-	if (strcmp(link, "y") == 0 || strcmp(link, "Y") == 0)
+	scanf("%[^\n]s", more_rule);
+	if (strcmp(more_rule, "y") == 0 || strcmp(more_rule, "Y") == 0)
 	{
 		system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
 	}
@@ -274,16 +264,15 @@ void chooseSymbol(void)
 {
 	const int correct=1;
 	const int incorrect=0;
-	char dec[10];
+	char get_symbol[10];
 	int menu_input = incorrect;
 	int right_input;
-		
 
 	while (menu_input==incorrect) 
 	{
 		printf("\n\nPlayer1 %s choose the X or O:", player1.name);
-		scanf("%s", dec);
-		right_input = setSymbol(dec);
+		scanf("%s", get_symbol);
+		right_input = setSymbol(get_symbol);
 		if(right_input)
 		{
 			menu_input=correct;
@@ -303,30 +292,28 @@ int isRight(char* player_symbol, char* capital_letter, char* small_letter)
 	string_same = strcmp(player_symbol, capital_letter);
 	if (string_same == 0)
 	{
-		return 1;
+		return success;
 	}
 
 	string_same = strcmp(player_symbol, small_letter);
 	if (string_same == 0)
 	{
-		return 1;
+		return success;
 	}
 
-	return 0;
+	return failure;
 }
 
 int setSymbol(char* player1_symbol)
 {
 	int is_player_symbol;
-	const int complete = 1;
-	const int fail = 0;
 	
 	is_player_symbol = isRight(player1_symbol, "X", "x");
 	if(is_player_symbol)
 	{
 		player1.symbol = 'X';
 		player2.symbol = 'O';
-		return complete;
+		return success;
 	}
 
 	is_player_symbol = isRight(player1_symbol, "O", "o");
@@ -334,10 +321,10 @@ int setSymbol(char* player1_symbol)
 	{
 		player1.symbol = 'O';
 		player2.symbol = 'X';
-		return complete;
+		return success;
 	}
 
-	return fail;
+	return failure;
 }
 
 void enterName(void)
@@ -362,7 +349,6 @@ void playWithFriend(void) {
 
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	char board_position[100];
-	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
 	char symbol;
 	int current_player = 1;
 
@@ -387,16 +373,13 @@ void playWithFriend(void) {
 
 int checkVacancies(int i, char board_symbol[])
 {
-	const int vacancy = 1;
-	const int not_vacancy = 0;
-
 	if (board_symbol[i] == i + '1')
 	{
-		return vacancy;
+		return success;
 	}
 	else
 	{
-		return not_vacancy;
+		return failure;
 	}
 }
 
