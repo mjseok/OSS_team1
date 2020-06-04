@@ -269,22 +269,26 @@ void showRule(void)
 
 void chooseSymbol(void)
 {
+	const int correct=1;
+	const int incorrect=0;
 	char dec[10];
-	int insert_error = 1;
-	int right_input;	
+	int menu_input = incorrect;
+	int right_input;
+		
 
-	while (insert_error) 
+	while (menu_input==incorrect) 
 	{
 		printf("\n\nPlayer1 %s choose the X or O:", player1.name);
 		scanf("%s", dec);
 		right_input = setSymbol(dec);
 		if(right_input)
 		{
-			insert_error = 0;
+			menu_input=correct;
 		}
 		else
 		{
 			printf("Please enter either X or O only \n\n");
+			menu_input=incorrext;
 		}
 	}
 }
@@ -442,27 +446,29 @@ void chooseMenu(void)
 	const char* gotoComputerGame = "2";
 	const char* gotoLeaderBoard = "3";
 	const char* quitGame = "4";
-	int insert_error = 0;
+	const int correct=1;
+	const int incorrect=0;
+	
+	int menu_input= 0;
 	char menu_option[10];
 
-	while (!insert_error)
+	while (menu_input==incorrect)
 	{
 		printf("\n\nPress 1 to play with friend\nPress 2 to play with computer\nPress 3 to show LeaderBoard\nPress 4 to quit Game\n--> ");
 		scanf("%s", menu_option);
+		menu_input=correct;
+
 		if (strcmp(menu_option, gotoTwoPlayerGame) == 0)
 		{
 			playWithFriend();
-			break;
 		}
 		else if (strcmp(menu_option, gotoComputerGame) == 0)
 		{
 			playWithComputer();
-			break;
 		}
 		else if (strcmp(menu_option, gotoLeaderBoard) == 0)
 		{
 			showLeaderBoard();
-			break;
 		}
 		else if (strcmp(menu_option, quitGame) == 0)
 		{
@@ -471,6 +477,7 @@ void chooseMenu(void)
 		else
 		{
 			printf("\nWrong insert. Press Again!");
+			menu_input=incorrect;
 		}
 	}
 }
@@ -598,11 +605,6 @@ void playWithComputer(void)
       printf("\n\nGame Draws!\n\n");
    }
 }
-
-
-
-
-
 
 int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player) {
    char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
