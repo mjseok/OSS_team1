@@ -26,7 +26,6 @@ int checkVertical(char game_board[]);
 int checkDiagonal(char game_board[]);
 int checkDraw(char game_board[]);
 void showBoard(char game_board[]);
-void enterName(void);
 int changePlayer(int current_player);
 void showResult(int game_state, int current_player);
 int checkSomeoneWin(char game_board[]);
@@ -380,23 +379,6 @@ int setSymbol(char* player1_symbol)
 
 	return failure;
 }
-
-void enterName(void)
-{
-	printf("\nEnter name of player1: ");
-	scanf("%s", player1.name);
-	printf("Enter name of player2: ");
-	scanf("%s", player2.name);
-	while (strcmp(player1.name, player2.name) == 0)
-	{
-		printf("Enter names of different players!\n\n");
-		printf("\nEnter name of player1: ");
-		scanf("%s", player1.name);
-		printf("Enter name of player2: ");
-		scanf("%s", player2.name);
-	}
-}
-
 void playWithFriend(void) {
 	const int keepGoing = 0;
 	int game_state = 0;
