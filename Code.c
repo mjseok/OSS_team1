@@ -540,8 +540,6 @@ void playWithComputer(void)
    const int keepGoing = 0;
    int game_state = 0;
    int current_player = 1;
-   char symbol;
-   const int someoneWin = 1;
    int computer;
    char player_symbol;
    char computer_symbol;
