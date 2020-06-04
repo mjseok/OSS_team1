@@ -14,7 +14,10 @@ typedef struct player_information
 	char symbol;
 	char name[50];
 }Player_Info;
-
+int checkLongName(void);
+int isNameSame(void);
+void inputName(void);
+void enterName(void);
 void chooseMenu(void);
 void showRule(void);
 void chooseSymbol(void);
@@ -60,8 +63,62 @@ int main(void)
 	showRule();
 	chooseMenu();
 }
+int checkLongName(void) {
+	const int max_length = 10;
+	int length_player1Name = strlen(player1.name);
+	int length_player2Name = strlen(player2.name);
 
-void checkFile(FILE* file) {
+	if (length_player1Name > max_length) 
+	{
+		return success;
+	}
+
+	else if (length_player2Name > max_length) 
+	{
+		return success;
+	}
+
+	else 
+	{
+		return failure;
+	}
+
+}
+
+int isNameSame(void) {
+	if (strcmp(player1.name, player2.name)==0) 
+	{
+		return success;
+	}
+	else 
+	{
+		return failure;
+	}
+}
+
+void inputName(void) {
+	enterName();
+	while (isNameSame())
+	{
+		printf("Enter names of different players!\n\n");
+		enterName();
+	}
+
+	while (checkLongName())
+	{
+		printf("\nPlease enter name within 10 characters!\n");
+		enterName();
+	}
+}
+void enterName(void)
+{
+	printf("\nEnter name of player1: ");
+	scanf("%s", player1.name);
+	printf("Enter name of player2: ");
+	scanf("%s", player2.name);
+}
+void checkFile(FILE* file) 
+{
 	if (file == NULL)
 	{
 		printf("File doesn't linked!\n");
@@ -349,7 +406,7 @@ void playWithFriend(void) {
 	char symbol;
 	int current_player = 1;
 
-	enterName();
+	inputName();
 	chooseSymbol();
 	system("color fc");
 	showBoard(board_symbol);
