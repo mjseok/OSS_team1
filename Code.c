@@ -198,7 +198,6 @@ int checkDraw(char game_board[])
 
 void showLeaderBoard(void) {
 	char c = '\0';
-	int insert_error = 1;
 
 	system("cls");
 	printf("\n\n");
@@ -347,7 +346,6 @@ void playWithFriend(void) {
 
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	char board_position[100];
-	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
 	char symbol;
 	int current_player = 1;
 
