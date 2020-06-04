@@ -31,8 +31,8 @@ void playWithFriend(void);
 void showLeaderBoard(void);
 
 void quit(void);
-int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player);
-int checkVacancies(int i, char board_symbol[]);
+int checkPosition(char board_position[], char game_board[], char symbol, int current_player);
+int checkVacancies(int i, char game_board[]);
 void checkTurn(int current_player);
 char checkSymbol(int current_player);
 void checkFile(FILE* file);
@@ -43,7 +43,7 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol);
 int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
 void playWithComputer(void);
 int setSymbol(char* player1_symbol);
-int isRight(char* player_symbol, char* capital_letter, char* small_letter);
+int isRightInput(char* player_symbol, char* capital_letter, char* small_letter);
 int isIndexValueSame(char game_board[], int index1, int index2, int index3);
 
 Player_Info player1 = { '\0','\0' };
@@ -101,12 +101,12 @@ void showResult(int game_state, int current_player)
 	{
 		if (current_player == player2_turn)
 		{
-			printf("\n\nPlayer1 %s Wins!\n\n", player1.name);
+			printf("\n\n %s Wins!\n\n", player1.name);
 			fprintf(leaderboard, "%s\n", player1.name);
 		}
 		else
 		{
-			printf("\n\nPlayer2 %s Wins!\n\n", player2.name);
+			printf("\n\n %s Wins!\n\n", player2.name);
 			fprintf(leaderboard, "%s\n", player2.name);
 		}
 	}
@@ -227,10 +227,7 @@ void showBoard(char game_board[])
 	system("cls");
 	printf("\tTic-Tac-Toe\n\n");
 	printf("\n\n");
-	if (strcmp(player1.name, "\0") == 0)
-		printf("Player:- (0)\nComputer:-  (X)\n\n\n");
-	else
-		printf("%s:- (%c)\n%s:-  (%c)\n\n\n", player1.name, player1.symbol, player2.name, player2.symbol);
+	printf("%s:- (%c)\n%s:-  (%c)\n\n\n", player1.name, player1.symbol, player2.name, player2.symbol);
 
 	printf("  %c |  %c | %c\n", game_board[0], game_board[1], game_board[2]);
 	printf("    |    |    \n");
@@ -270,7 +267,7 @@ void chooseSymbol(void)
 
 	while (menu_input==incorrect) 
 	{
-		printf("\n\nPlayer1 %s choose the X or O:", player1.name);
+		printf("\n\n %s choose the X or O:", player1.name);
 		scanf("%s", get_symbol);
 		right_input = setSymbol(get_symbol);
 		if(right_input)
@@ -285,7 +282,7 @@ void chooseSymbol(void)
 	}
 }
 
-int isRight(char* player_symbol, char* capital_letter, char* small_letter)
+int isRightInput(char* player_symbol, char* capital_letter, char* small_letter)
 {
 	int string_same;
 
@@ -308,7 +305,7 @@ int setSymbol(char* player1_symbol)
 {
 	int is_player_symbol;
 	
-	is_player_symbol = isRight(player1_symbol, "X", "x");
+	is_player_symbol = isRightInput(player1_symbol, "X", "x");
 	if(is_player_symbol)
 	{
 		player1.symbol = 'X';
@@ -316,7 +313,7 @@ int setSymbol(char* player1_symbol)
 		return success;
 	}
 
-	is_player_symbol = isRight(player1_symbol, "O", "o");
+	is_player_symbol = isRightInput(player1_symbol, "O", "o");
 	if (is_player_symbol)
 	{
 		player1.symbol = 'O';
@@ -333,7 +330,7 @@ void enterName(void)
 	scanf("%s", player1.name);
 	printf("Enter name of player2: ");
 	scanf("%s", player2.name);
-	while (!strcmp(player1.name, player2.name))
+	while (strcmp(player1.name, player2.name) == 0)
 	{
 		printf("Enter names of different players!\n\n");
 		printf("\nEnter name of player1: ");
@@ -371,9 +368,9 @@ void playWithFriend(void) {
 }
 
 
-int checkVacancies(int i, char board_symbol[])
+int checkVacancies(int i, char game_board[])
 {
-	if (board_symbol[i] == i + '1')
+	if (game_board[i] == i + '1')
 	{
 		return success;
 	}
@@ -471,7 +468,7 @@ int checkValueOnComputer(char game_board[], int index1, int index2, int index3, 
 {
 	if (game_board[index1] == symbol && game_board[index2] == symbol)
 	{
-		if (game_board[index3] != 'o' && game_board[index3] != 'x')
+		if (game_board[index3] != player1.symbol && game_board[index3] != player2.symbol)
 		{
 			return index3;
 		}
@@ -546,30 +543,34 @@ void playWithComputer(void)
    char symbol;
    const int someoneWin = 1;
    int computer;
-   char player_symbol = 'o';
-   char computer_symbol = 'x';
+   char player_symbol;
+   char computer_symbol;
 
+   strcpy(player1.name, "Player");
+   strcpy(player2.name, "Computer");
+   chooseSymbol();
    system("color fc");
-
    showBoard(board_symbol);
+
+   player_symbol = player1.symbol;
+   computer_symbol = player2.symbol;
+
    while (game_state == keepGoing)
    {
       if (current_player == player1_turn)
       {
-         symbol = player_symbol;
-         printf("Type any digit from 1-9 to fill your response:- ");
+	 checkTurn(current_player);
          scanf("%s", board_position);
          current_player = checkPosition(board_position, board_symbol, player_symbol, current_player);
       }
       else
       {
-         symbol = computer_symbol;
          computer = checkComputer(board_symbol, computer_symbol, player_symbol);
-         if (!computer)
+         if (computer == 0)
          {
             computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
          }
-         board_symbol[computer] = symbol;
+         board_symbol[computer] = computer_symbol;
          printf("Computer select %d\n", computer + 1);
          Sleep(1000);
          current_player = changePlayer(current_player);
@@ -580,17 +581,11 @@ void playWithComputer(void)
 
    }
 
-   if (game_state == someoneWin)
-   {
-      printf("\n\nSomeone Wins!\n\n");
-   }
-   else
-   {
-      printf("\n\nGame Draws!\n\n");
-   }
+   showResult(game_state, current_player);
+	
 }
 
-int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player) {
+int checkPosition(char board_position[], char game_board[], char symbol, int current_player) {
    char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
    int check_proper_position = 0;
    const int proper_position = 1;
@@ -599,10 +594,10 @@ int checkPosition(char board_position[], char board_symbol[], char symbol, int c
    {
       if (strcmp(check_position[i], board_position) == 0)
       {
-         if (checkVacancies(i, board_symbol))
+         if (checkVacancies(i, game_board))
          {
             check_proper_position = proper_position;
-            board_symbol[i] = symbol;
+            game_board[i] = symbol;
             current_player = changePlayer(current_player);
             break;
          }
