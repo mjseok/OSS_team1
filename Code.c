@@ -9,7 +9,7 @@ Author:- Mishal Shah
 #pragma warning (disable:4996)
 #define _CRT_SECURE_NO_WARNINGS
 
-typedef struct
+typedef struct player_information
 {
 	char symbol;
 	char name[50];
@@ -42,7 +42,6 @@ int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, c
 int checkComputer(char game_board[], char computer_symbol, char player_symbol);
 int findBlankForComputer(char game_board[], char computer_symbol, char player_symbol);
 void playWithComputer(void);
-int checkposition2(char board_position[], char board_symbol[], char symbol, int current_player);
 int setSymbol(char* player1_symbol);
 int isRight(char* player_symbol, char* capital_letter, char* small_letter);
 int isIndexValueSame(char game_board[], int index1, int index2, int index3);
@@ -53,6 +52,7 @@ const int player1_turn = 1;
 const int player2_turn = 2;
 const int success =1;
 const int failure = 0;
+
 
 int main(void)
 {
@@ -246,7 +246,7 @@ void showBoard(char game_board[])
 
 void showRule(void)
 {
-	char link[10];
+	char more_rule[10];
 	printf("\tTic-Tac-Toe\n\n");
 	printf("Welcome to the most played 2D game and a sort of fun using X and O\n\n");
 	printf("Rules:-\n");
@@ -254,8 +254,8 @@ void showRule(void)
 	printf("\n2:Player who gets a combination of 3 same characters either diagonal or horizontally or \n  vertically will be declared as the winner");
 	printf("\n\nEnjoy the game! Be a Winner!\n\n");
 	printf("For more clarifications press Y else type any other character:- ");
-	scanf("%[^\n]s", link);
-	if (strcmp(link, "y") == 0 || strcmp(link, "Y") == 0)
+	scanf("%[^\n]s", more_rule);
+	if (strcmp(more_rule, "y") == 0 || strcmp(more_rule, "Y") == 0)
 	{
 		system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
 	}
@@ -263,15 +263,15 @@ void showRule(void)
 
 void chooseSymbol(void)
 {
-	char dec[10];
+	char get_symbol[10];
 	int insert_error = 1;
 	int right_input;	
 
 	while (insert_error) 
 	{
 		printf("\n\nPlayer1 %s choose the X or O:", player1.name);
-		scanf("%s", dec);
-		right_input = setSymbol(dec);
+		scanf("%s", get_symbol);
+		right_input = setSymbol(get_symbol);
 		if(right_input)
 		{
 			insert_error = 0;
