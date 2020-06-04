@@ -12,7 +12,7 @@ Author:- Mishal Shah
 typedef struct player_information
 {
 	char symbol;
-	char name[50];
+	char name[11];
 }Player_Info;
 int checkLongName(void);
 int isNameSame(void);
