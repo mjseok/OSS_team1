@@ -25,11 +25,10 @@ int checkDraw(char game_board[]);
 void showBoard(char game_board[]);
 void enterName(void);
 int changePlayer(int current_player);
-void showResult(FILE* leaderboard, int game_state, int current_player);
+void showResult(int game_state, int current_player);
 int checkSomeoneWin(char game_board[]);
 void playWithFriend(void);
 void showLeaderBoard(void);
-
 
 void quit(void);
 int checkPosition(char board_position[], char board_symbol[], char symbol, int current_player);
@@ -89,29 +88,32 @@ void checkTurn(int current_player) {
 		printf("%s Type any digit from 1-9 to fill your response:- ", player2.name);
 	}
 }
-void showResult(FILE* leaderboard, int game_state, int current_player)
+void showResult(int game_state, int current_player)
 {
 	const int someone_win = 1;
+	FILE* leaderboard = fopen("leaderboard.txt", "a+");
+	checkFile(leaderboard);
+	
+	fprintf(leaderboard, "%s\t%s\t", player1.name, player2.name);
 	if (game_state == someone_win)
 	{
 		if (current_player == player2_turn)
 		{
 			printf("\n\nPlayer1 %s Wins!\n\n", player1.name);
-			fprintf(leaderboard, "%s\t%s\t%s\n", player1.name, player2.name, player1.name);
+			fprintf(leaderboard, "%s\n", player1.name);
 		}
 		else
 		{
 			printf("\n\nPlayer2 %s Wins!\n\n", player2.name);
-			fprintf(leaderboard, "%s\t%s\t%s\n", player1.name, player2.name, player2.name);
+			fprintf(leaderboard, "%s\n", player2.name);
 		}
-		fclose(leaderboard);
 	}
 	else
 	{
 		printf("\n\nGame Draws!\n\n");
-		fprintf(leaderboard, "%s\t%s\t%s\n", player1.name, player2.name, "DRAW");
-		fclose(leaderboard);
+		fprintf(leaderboard, "%s\n", "DRAW");
 	}
+	fclose(leaderboard);
 }
 
 int isIndexValueSame(char game_board[], int index1, int index2, int index3)
@@ -215,6 +217,7 @@ void showLeaderBoard(void) {
 	printf("-------------------------\n");
 
 	FILE* leaderboard = fopen("leaderboard.txt", "r");
+	checkFile(leaderboard);
 	while (c != EOF)
 	{
 		c = (char)(getc(leaderboard));
@@ -358,7 +361,6 @@ void playWithFriend(void) {
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
 	char symbol;
 	int current_player = 1;
-	FILE* leaderboard = fopen("leaderboard.txt", "a+");
 
 	enterName();
 	chooseSymbol();
@@ -376,7 +378,6 @@ void playWithFriend(void) {
 		showBoard(board_symbol);
 	}
 	showResult(leaderboard, game_state, current_player);
-	fclose(leaderboard);
 }
 
 
