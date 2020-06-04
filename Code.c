@@ -288,7 +288,7 @@ void chooseSymbol(void)
 		else
 		{
 			printf("Please enter either X or O only \n\n");
-			menu_input=incorrext;
+			menu_input=incorrect;
 		}
 	}
 }
