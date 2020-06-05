@@ -6,8 +6,9 @@
 #pragma warning (disable:4996)
 
 void showLeaderBoard(void)
-{
-	char player1_name[50] = "\0", player2_name[50] = "\0", result[100] = "\0";
+{	
+	FILE* leaderboard;
+	char player1_name[11] = "\0", player2_name[11] = "\0", result[11] = "\0";
 	const int TAB_SIZE = 8;
 	
 	system("cls");
@@ -19,7 +20,7 @@ void showLeaderBoard(void)
 	printf("|\tPlayer1\t\t|\tPlayer2\t\t|\tWinner\t\t|\n");
 	printf("-------------------------------------------------------------------------\n");
 
-	FILE* leaderboard = fopen("leaderboard.txt", "a+");
+	leaderboard = fopen("leaderboard.txt", "a+");
 	checkFile(leaderboard);
 	
 	fscanf(leaderboard, "%s %s %s", player1_name, player2_name, result);
