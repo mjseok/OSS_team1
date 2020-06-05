@@ -37,7 +37,8 @@
    
 ## Execution Screen
 
-실행 화면 gif로 업로드
+![image](https://user-images.githubusercontent.com/57527380/83803464-93781c80-a6e7-11ea-9ddc-eee1688fba23.png)
+
 
 
 ## How to run
@@ -121,7 +122,8 @@ There is also a computer-to-player matchup for single players.
 
 ## 실행 화면
 
-실행 화면 gif로 업로드
+![image](https://user-images.githubusercontent.com/57527380/83803464-93781c80-a6e7-11ea-9ddc-eee1688fba23.png)
+
 
 
 ## 실행 방법
