@@ -287,7 +287,7 @@ void showLeaderBoard(void) {
 }
 
 void quit(void) {
-	printf("\nBye~~\n");
+	printf("\n\tBye~~\n");
 	exit(1);
 }
 
@@ -377,7 +377,7 @@ void showRule(void)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 	printf("\n\tFirst:Each player will be entering the number to put respective X or O in the desired position\n");
-	printf("\n\tSecond:Player who gets a combination of 3 same characters either diagonal or horizontally or \n\t  vertically will be declared as the winner");
+	printf("\n\tSecond:Player who gets a combination of 3 same characters either diagonal or horizontally or vertically\n\t        will be declared as the winner");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 
 	printf("\n\n\tEnjoy the game! Be a Winner!\n\n");
