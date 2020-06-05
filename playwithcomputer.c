@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "declaration.h"
 #include "playwithcomputer.h"
+#include "gameboard.h"
+#include "gamesetting.h"
 #pragma warning (disable:4996)
 
 int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol)

@@ -1,7 +1,9 @@
 #include <Windows.h>
 #include <stdio.h>
 #include "declaration.h"
+#include "leaderboard.h"
 #include "gameboard.h"
+#include "gamesetting.h"
 #pragma warning (disable:4996)
 
 int checkHorizontal(char game_board[])

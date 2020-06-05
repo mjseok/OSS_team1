@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "declaration.h"
 #include "playwithfriend.h"
+#include "gameboard.h"
+#include "gamesetting.h"
 #pragma warning (disable:4996)
 
 void playWithFriend(void) 

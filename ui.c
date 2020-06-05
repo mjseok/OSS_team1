@@ -1,6 +1,12 @@
 #include <Windows.h>
 #include <stdio.h>
+#include "declaration.h"
+#include "leaderboard.h"
 #include "ui.h"
+#include "playwithfriend.h"
+#include "playwithcomputer.h"
+#include "gameboard.h"
+#include "gamesetting.h"
 #pragma warning (disable:4996)
 void startInterface(void) 
 {
