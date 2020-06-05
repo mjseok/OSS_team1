@@ -71,7 +71,7 @@ There is also a computer-to-player matchup for single players.
 
 ## Bugs and Feature Requests
 
-[**Click**](https://github.com/mjseok/OSS_team1/issues)
+[**Click**](https://github.com/mjseok/OSS_team1/blob/master/CONTRIBUTING.md)
    
    
 ## About the Contributor
@@ -156,7 +156,7 @@ Tic Tac Toe에 대한 자세한 설명은 'Y'나 'y' 키를 통해 확인할 수
 
 ## 버그 및 기능 요청
 
-[**클릭**](https://github.com/mjseok/OSS_team1/issues)
+[**클릭**](https://github.com/mjseok/OSS_team1/blob/master/CONTRIBUTING.md)
 
 
 ## 기여자 정보
