@@ -69,7 +69,8 @@ void startTicTacToe(void)
 	showRule();
 	chooseMenu();
 }
-int checkLongName(void) {
+int checkLongName(void) 
+{
 	const int max_length = 10;
 	int length_player1Name = strlen(player1.name);
 	int length_player2Name = strlen(player2.name);
@@ -91,7 +92,8 @@ int checkLongName(void) {
 
 }
 
-int isNameSame(void) {
+int isNameSame(void) 
+{
 	if (strcmp(player1.name, player2.name) == 0)
 	{
 		return success;
@@ -102,7 +104,8 @@ int isNameSame(void) {
 	}
 }
 
-void inputName(void) {
+void inputName(void) 
+{
 	enterName();
 	while (isNameSame())
 	{
@@ -136,7 +139,8 @@ void checkFile(FILE* file)
 	}
 }
 
-char checkSymbol(int current_player) {
+char checkSymbol(int current_player) 
+{
 	if (current_player == player1_turn)
 	{
 		return player1.symbol;
@@ -147,7 +151,8 @@ char checkSymbol(int current_player) {
 	}
 }
 
-void checkTurn(int current_player) {
+void checkTurn(int current_player) 
+{
 
 	if (current_player == player1_turn)
 	{
@@ -223,7 +228,9 @@ int checkHorizontal(char game_board[])
 		return success;
 	}
 	else
+	{
 		return failure;
+	}
 }
 
 int checkVertical(char game_board[])
@@ -241,7 +248,9 @@ int checkVertical(char game_board[])
 		return success;
 	}
 	else
+	{
 		return failure;
+	}
 }
 
 int checkDiagonal(char game_board[])
@@ -255,7 +264,9 @@ int checkDiagonal(char game_board[])
 		return success;
 	}
 	else
+	{
 		return failure;
+	}
 }
 
 int checkDraw(char game_board[])
@@ -290,7 +301,8 @@ void showLeaderBoard(void)
 	FILE* leaderboard = fopen("leaderboard.txt", "r");
 	checkFile(leaderboard);
 
-	while (!feof(leaderboard)) {
+	while (!feof(leaderboard)) 
+	{
 		fscanf(leaderboard, "%s %s %s", player1_name, player2_name, result);
 		if (strlen(player1_name) < tab_size)
 		{
@@ -329,7 +341,8 @@ void showLeaderBoard(void)
 }
 
 
-void quit(void) {
+void quit(void) 
+{
 	printf("\nBye~~\n");
 	exit(1);
 }
@@ -343,9 +356,13 @@ void showBoard(char game_board[])
 	printf("〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
 	if (strcmp(player1.name, "\0") == 0)
+	{
 		printf("Player:- (0)\nComputer:-  (X)\n\n\n");
+	}
 	else
+	{
 		printf(" Player %s Symbol is (%c)\n Player %s Symbol is (%c)\n\n", player1.name, player1.symbol, player2.name, player2.symbol);
+	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 
 	printf("■■■■■■■■■■■■■\n");
@@ -408,8 +425,6 @@ void showBoard(char game_board[])
 	printf("■      ■      ■      ■\n");
 	printf("■      ■      ■      ■\n");
 	printf("■■■■■■■■■■■■■\n\n");
-
-
 
 }
 
@@ -510,7 +525,8 @@ int setSymbol(char* player1_symbol)
 
 	return failure;
 }
-void playWithFriend(void) {
+void playWithFriend(void) 
+{
 	const int keepGoing = 0;
 	int game_state = 0;
 
@@ -551,7 +567,6 @@ int checkVacancies(int i, char game_board[])
 
 int changePlayer(int current_player)
 {
-
 	if (current_player == player1_turn)
 	{
 		return player2_turn;
@@ -659,12 +674,14 @@ int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, c
 
 	proper_index = checkValueOnComputer(game_board, index1, index2, index3, symbol);
 	if (proper_index)
+	{
 		return proper_index;
-
+	}
 	proper_index = checkValueOnComputer(game_board, index2, index3, index1, symbol);
 	if (proper_index)
+	{
 		return proper_index;
-
+	}
 	proper_index = checkValueOnComputer(game_board, index1, index3, index2, symbol);
 
 	return proper_index;
@@ -697,7 +714,9 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 	{
 		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], computer_symbol);
 		if (final_index)
+		{
 			return final_index;
+		}
 	}
 
 	//Find the case that computer loses
@@ -705,7 +724,9 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 	{
 		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], player_symbol);
 		if (final_index)
+		{
 			return final_index;
+		}
 	}
 
 	return final_index;
@@ -759,7 +780,8 @@ void playWithComputer(void)
 
 }
 
-int checkPosition(char board_position[], char game_board[], char symbol, int current_player) {
+int checkPosition(char board_position[], char game_board[], char symbol, int current_player) 
+{
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
 	int check_proper_position = 0;
 	const int proper_position = 1;
@@ -778,7 +800,8 @@ int checkPosition(char board_position[], char game_board[], char symbol, int cur
 		}
 	}
 
-	if (check_proper_position == improper_position) {
+	if (check_proper_position == improper_position) 
+	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 		printf("Wrong Selection\n");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
@@ -787,7 +810,8 @@ int checkPosition(char board_position[], char game_board[], char symbol, int cur
 	}
 	return current_player;
 }
-void startInterface(void) {
+void startInterface(void) 
+{
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	printf("\t _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
