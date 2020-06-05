@@ -55,9 +55,10 @@ Winning or losing is determined by placing the same symbol on the horizontal, ve
 Detailed information about Tic Tac Toe can be found through the 'Y' or 'y' key.
 In addition, the player's information of the game and the winner of the game can be saved as a text file, and the previous record can be checked through the leaderboard.
 
-Press '1' to start the game.
-Press '2' to print the LeaderBoard.
-Press '3' to exit the game.
+Press '1' to start the game with friend.
+Press '2' to start the game with computer.
+Press '3' to print the LeaderBoard.
+Press '4' to exit the game.
 
 There is also a computer-to-player matchup for single players.
 ```
@@ -139,9 +140,10 @@ There is also a computer-to-player matchup for single players.
 Tic Tac Toe에 대한 자세한 설명은 'Y'나 'y' 키를 통해 확인할 수 있다.
 또한, 게임의 플레이어의 정보와 게임의 승자를 텍스트 파일로 저장하여 리더보드를 통해 이전의 기록을 확인할 수 있다.
 
-'1'을 눌러 게임을 시작하고
-'2'을 눌러 LeaderBoard를 출력하며
-'3'을 눌러 게임을 나갈 수도 있다.
+'1'을 눌러 친구와의 게임을 시작하고
+'2'을 눌러 컴퓨터와의 게임을 시작하고
+'3'을 눌러 LeaderBoard를 출력하며
+'4'을 눌러 게임을 나갈 수도 있다.
 
 1인 플레이어를 위한 컴퓨터와의 대결 기능도 있다.
 ```
