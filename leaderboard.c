@@ -8,7 +8,9 @@
 void showLeaderBoard(void)
 {	
 	FILE* leaderboard;
-	char player1_name[11] = "\0", player2_name[11] = "\0", result[11] = "\0";
+	char player1_name[11] = "\0";
+	char player2_name[11] = "\0";
+	char result[11] = "\0";
 	const int TAB_SIZE = 8;
 	
 	system("cls");
