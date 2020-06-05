@@ -37,7 +37,7 @@
    
 ## Execution Screen
 
-![image](https://user-images.githubusercontent.com/57527380/83803464-93781c80-a6e7-11ea-9ddc-eee1688fba23.png)
+![](https://raw.githubusercontent.com/mjseok/OSS_team1/master/gif_file/executescreen.gif)
 
 
 
@@ -122,7 +122,7 @@ There is also a computer-to-player matchup for single players.
 
 ## 실행 화면
 
-![image](https://user-images.githubusercontent.com/57527380/83803464-93781c80-a6e7-11ea-9ddc-eee1688fba23.png)
+![](https://raw.githubusercontent.com/mjseok/OSS_team1/master/gif_file/executescreen.gif)
 
 
 
