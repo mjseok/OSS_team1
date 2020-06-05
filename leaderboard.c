@@ -18,13 +18,12 @@ void showLeaderBoard(void)
 	printf("|\tPlayer1\t\t|\tPlayer2\t\t|\tWinner\t\t|\n");
 	printf("-------------------------------------------------------------------------\n");
 
-	FILE* leaderboard = fopen("leaderboard.txt", "r");
+	FILE* leaderboard = fopen("leaderboard.txt", "a+");
 	checkFile(leaderboard);
-
+	
+	fscanf(leaderboard, "%s %s %s", player1_name, player2_name, result);
 	while (!feof(leaderboard)) 
 	{
-		fscanf(leaderboard, "%s %s %s", player1_name, player2_name, result);
-		
 		if ((int)(strlen(player1_name)) < tab_size)
 		{
 			printf("|\t%s\t\t|", player1_name);
@@ -54,6 +53,7 @@ void showLeaderBoard(void)
 			printf("\t%s\t|\n", result);
 		}
 		printf("-------------------------------------------------------------------------\n");
+		fscanf(leaderboard, "%s %s %s", player1_name, player2_name, result);
 	}
 
 	fclose(leaderboard);
