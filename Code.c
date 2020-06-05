@@ -303,7 +303,7 @@ void showLeaderBoard(void)
 	while (!feof(leaderboard)) 
 	{
 		fscanf(leaderboard, "%s %s %s", player1_name, player2_name, result);
-		if (strlen(player1_name) < tab_size)
+		if ((int)(strlen(player1_name) )< tab_size)
 		{
 			printf("|\t%s\t\t|", player1_name);
 		}
@@ -312,7 +312,7 @@ void showLeaderBoard(void)
 			printf("|\t%s\t|", player1_name);
 		}
 
-		if (strlen(player2_name) < tab_size) 
+		if ((int)(strlen(player2_name)) < tab_size) 
 		{
 			printf("\t%s\t\t|", player2_name);
 		}
@@ -321,7 +321,7 @@ void showLeaderBoard(void)
 			printf("\t%s\t|", player2_name);
 		}
 
-		if (strlen(result) < tab_size) 
+		if ((int)(strlen(result) )< tab_size) 
 		{
 			printf("\t%s\t\t|\n", result);
 		}
