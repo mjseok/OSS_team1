@@ -4,16 +4,16 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
-extern const int player1_turn;
-extern const int player2_turn;
-extern const int success;
-extern const int failure;
+extern const int PLAYER1_TURN;
+extern const int PLAYER2_TURN;
+extern const int SUCCESS;
+extern const int FAILURE;
 extern Player_Info player1;
 extern Player_Info player2;
 
 char checkSymbol(int current_player) 
 {
-	if (current_player == player1_turn)
+	if (current_player == PLAYER1_TURN)
 	{
 		return player1.symbol;
 	}
@@ -25,7 +25,7 @@ char checkSymbol(int current_player)
 
 void checkTurn(int current_player) 
 {
-	if (current_player == player1_turn)
+	if (current_player == PLAYER1_TURN)
 	{
 		printf("%s Type any digit from 1-9 to fill your response:- ", player1.name);
 	}
@@ -37,13 +37,13 @@ void checkTurn(int current_player)
 
 void chooseSymbol(void)
 {
-	const int correct = 1;
-	const int incorrect = 0;
+	const int CORRECT = 1;
+	const int INCORRECT = 0;
 	char get_symbol[10];
-	int menu_input = incorrect;
+	int menu_input = INCORRECT;
 	int right_input;
 
-	while (menu_input == incorrect)
+	while (menu_input == INCORRECT)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 		printf("\n\n\t%s choose the X or O:", player1.name);
@@ -52,7 +52,7 @@ void chooseSymbol(void)
 		right_input = setSymbol(get_symbol);
 		if (right_input)
 		{
-			menu_input = correct;
+			menu_input = CORRECT;
 		}
 
 		else
@@ -60,7 +60,7 @@ void chooseSymbol(void)
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 			printf("\n\tPlease enter either X or O only \n\n");
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-			menu_input = incorrect;
+			menu_input = INCORRECT;
 		}
 	}
 }
@@ -71,15 +71,15 @@ int isRightInput(char* player_symbol, char* capital_letter, char* small_letter)
 	string_same = strcmp(player_symbol, capital_letter);
 	if (string_same == 0)
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	string_same = strcmp(player_symbol, small_letter);
 	if (string_same == 0)
 	{
-		return success;
+		return SUCCESS;
 	}
-	return failure;
+	return FAILURE;
 }
 
 int setSymbol(char* player1_symbol)
@@ -91,7 +91,7 @@ int setSymbol(char* player1_symbol)
 	{
 		player1.symbol = 'X';
 		player2.symbol = 'O';
-		return success;
+		return SUCCESS;
 	}
 
 	is_player_symbol = isRightInput(player1_symbol, "O", "o");
@@ -99,21 +99,21 @@ int setSymbol(char* player1_symbol)
 	{
 		player1.symbol = 'O';
 		player2.symbol = 'X';
-		return success;
+		return SUCCESS;
 	}
-	return failure;
+	return FAILURE;
 
 }
 
 int changePlayer(int current_player)
 {
-	if (current_player == player1_turn)
+	if (current_player == PLAYER1_TURN)
 	{
-		return player2_turn;
+		return PLAYER2_TURN;
 	}
 
 	else
 	{
-		return player1_turn;
+		return PLAYER1_TURN;
 	}
 }

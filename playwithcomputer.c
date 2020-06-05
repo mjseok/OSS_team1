@@ -6,7 +6,7 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
-extern const int player1_turn;
+extern const int PLAYER1_TURN;
 extern Player_Info player1;
 extern Player_Info player2;
 
@@ -94,9 +94,10 @@ void playWithComputer(void)
 {
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	char board_position[10];
-	const int keepGoing = 0;
-	int game_state = 0;
-	int current_player = 1;
+	const int KEEPGOING = 0;
+	const int ANYWHERE = 0;
+	int game_state = KEEPGOING;
+	int current_player = PLAYER1_TURN;
 	int computer;
 	char player_symbol;
 	char computer_symbol;
@@ -109,9 +110,9 @@ void playWithComputer(void)
 	player_symbol = player1.symbol;
 	computer_symbol = player2.symbol;
 
-	while (game_state == keepGoing)
+	while (game_state == KEEPGOING)
 	{
-		if (current_player == player1_turn)
+		if (current_player == PLAYER1_TURN)
 		{
 			checkTurn(current_player);
 			scanf("%s", board_position);
@@ -121,7 +122,7 @@ void playWithComputer(void)
 		else
 		{
 			computer = checkComputer(board_symbol, computer_symbol, player_symbol);
-			if (computer == 0)
+			if (computer == ANYWHERE)
 			{
 				computer = findBlankForComputer(board_symbol, computer_symbol, player_symbol);
 			}

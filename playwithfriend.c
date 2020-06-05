@@ -6,15 +6,15 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
-extern const int success;
-extern const int failure;
+extern const int SUCCESS;
+extern const int FAILURE;
 extern Player_Info player1;
 extern Player_Info player2;
 
 void playWithFriend(void) 
 {
-	const int keepGoing = 0;
-	int game_state = 0;
+	const int KEEPGOING = 0;
+	int game_state = KEEPGOING;
 	int current_player = 1;
 	char board_symbol[9] = { '1','2','3','4','5','6','7','8','9' };
 	char board_position[100];
@@ -24,7 +24,7 @@ void playWithFriend(void)
 	chooseSymbol();
 	showBoard(board_symbol);
 
-	while (game_state == keepGoing)
+	while (game_state == KEEPGOING)
 	{
 		checkTurn(current_player);
 		scanf("%s", board_position);
@@ -38,21 +38,21 @@ void playWithFriend(void)
 
 int checkLongName(void) 
 {
-	const int max_length = 10;
+	const int MAX_LENGTH = 10;
 	int length_player1Name = strlen(player1.name);
 	int length_player2Name = strlen(player2.name);
 
-	if (length_player1Name > max_length)
+	if (length_player1Name > MAX_LENGTH)
 	{
-		return success;
+		return SUCCESS;
 	}
-	else if (length_player2Name > max_length)
+	else if (length_player2Name > MAX_LENGTH)
 	{
-		return success;
+		return SUCCESS;
 	}
 	else
 	{
-		return failure;
+		return FAILURE;
 	}
 }
 
@@ -60,11 +60,11 @@ int isNameSame(void)
 {
 	if (strcmp(player1.name, player2.name) == 0)
 	{
-		return success;
+		return SUCCESS;
 	}
 	else
 	{
-		return failure;
+		return FAILURE;
 	}
 }
 

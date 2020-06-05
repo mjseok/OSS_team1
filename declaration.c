@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "declaration.h"
 
-const int player1_turn = 1;
-const int player2_turn = 2;
-const int success = 1;
-const int failure = 0;
+const int PLAYER1_TURN = 1;
+const int PLAYER2_TURN = 2;
+const int SUCCESS = 1;
+const int FAILURE = 0;
 
 Player_Info player1 = {'\0','\0'};
 Player_Info player2 = {'\0','\0'};

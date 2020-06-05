@@ -6,9 +6,9 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
-extern const int player2_turn;
-extern const int success;
-extern const int failure;
+extern const int PLAYER2_TURN;
+extern const int SUCCESS;
+extern const int FAILURE;
 extern Player_Info player1;
 extern Player_Info player2;
 
@@ -16,21 +16,21 @@ int checkHorizontal(char game_board[])
 {
 	if (isIndexValueSame(game_board, 0, 1, 2))
 	{
-		return success;
+		return SUCCESS;
 	}
 	else if (isIndexValueSame(game_board, 3, 4, 5))
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	else if (isIndexValueSame(game_board, 6, 7, 8))
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	else
 	{
-		return failure;
+		return FAILURE;
 	}
 
 }
@@ -40,21 +40,21 @@ int checkVertical(char game_board[])
 {
 	if (isIndexValueSame(game_board, 0, 3, 6))
 	{
-		return success;
+		return SUCCESS;
 	}
 	else if (isIndexValueSame(game_board, 1, 4, 7))
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	else if (isIndexValueSame(game_board, 2, 5, 8))
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	else
 	{
-		return failure;
+		return FAILURE;
 	}
 }
 
@@ -64,17 +64,17 @@ int checkDiagonal(char game_board[])
 {
 	if (isIndexValueSame(game_board, 0, 4, 8))
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	else if (isIndexValueSame(game_board, 2, 4, 6))
 	{
-		return success;
+		return SUCCESS;
 	}
 
 	else
 	{
-		return failure;
+		return FAILURE;
 	}	
 
 }
@@ -85,53 +85,54 @@ int checkDraw(char game_board[])
 	{
 		if (game_board[i] == i + '1')
 		{
-			return failure;
+			return FAILURE;
 		}
 	}
-	return success;
+	return SUCCESS;
 }
 
 int checkVacancies(int i, char game_board[])
 {
 	if (game_board[i] == i + '1')
 	{
-		return success;
+		return SUCCESS;
 	}
 	else
 	{
-		return failure;
+		return FAILURE;
 	}
 }
 
 int isIndexValueSame(char game_board[], int index1, int index2, int index3)
 {
-	const int same_values = 1;
-	const int differ_values = 0;
+	const int SAME_VALUES = 1;
+	const int DIFFER_VALUES = 0;
 
 	if (game_board[index1] == game_board[index2])
 	{
 		if (game_board[index2] == game_board[index3])
 		{
-			return same_values;
+			return SAME_VALUES;
 		}
 	}
-	return differ_values;
+	return DIFFER_VALUES;
 
 }
 
 int checkPosition(char board_position[], char game_board[], char symbol, int current_player) 
 {
 	char check_position[9][2] = { "1","2","3","4","5","6","7","8","9" };
-	int check_proper_position = 0;
-	const int proper_position = 1;
-	const int improper_position = 0;
+	const int PROPER_POSITION = 1;
+	const int IMPROPER_POSITION = 0;
+	int check_proper_position = IMPROPER_POSITION;
+
 	for (int i = 0; i < 9; i++)
 	{
 		if (strcmp(check_position[i], board_position) == 0)
 		{
 			if (checkVacancies(i, game_board))
 			{
-				check_proper_position = proper_position;
+				check_proper_position = PROPER_POSITION;
 				game_board[i] = symbol;
 				current_player = changePlayer(current_player);
 				break;
@@ -141,7 +142,8 @@ int checkPosition(char board_position[], char game_board[], char symbol, int cur
 
 	}
  
-	if (check_proper_position == improper_position) {
+	if (check_proper_position == IMPROPER_POSITION) 
+	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 		printf("Wrong Selection\n");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
@@ -235,48 +237,48 @@ void showBoard(char game_board[])
 
 int checkSomeoneWin(char game_board[])
 {
-	const int someone_win = 1;
-	const int draw = -1;
-	const int game_continue = 0;
+	const int SOMEONE_WIN = 1;
+	const int DRAW = -1;
+	const int GAME_CONTINUE = 0;
 
 	if (checkHorizontal(game_board))
 	{
-		return someone_win;
+		return SOMEONE_WIN;
 	}
 
 	else if (checkVertical(game_board))
 	{
-		return someone_win;
+		return SOMEONE_WIN;
 	}
 
 	else if (checkDiagonal(game_board))
 	{
-		return someone_win;
+		return SOMEONE_WIN;
 	}
 
 	else if (checkDraw(game_board))
 	{
-		return draw;
+		return DRAW;
 	}
 
 	else
 	{
-		return game_continue;
+		return GAME_CONTINUE;
 	}
 
 }
 
 void showResult(int game_state, int current_player)
 {
-	const int someone_win = 1;
+	const int SOMEONE_WIN = 1;
 	FILE* leaderboard = fopen("leaderboard.txt", "a+");
 	checkFile(leaderboard);
 
 	fprintf(leaderboard, "%s\t%s\t", player1.name, player2.name);
 
-	if (game_state == someone_win)
+	if (game_state == SOMEONE_WIN)
 	{
-		if (current_player == player2_turn)
+		if (current_player == PLAYER2_TURN)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 			printf("\n******* %s Wins *******\n\n", player1.name);
