@@ -48,6 +48,7 @@ void playWithComputer(void);
 int setSymbol(char* player1_symbol);
 int isRightInput(char* player_symbol, char* capital_letter, char* small_letter);
 int isIndexValueSame(char game_board[], int index1, int index2, int index3);
+void startTicTacToe(void);
 
 Player_Info player1 = { '\0','\0' };
 Player_Info player2 = { '\0','\0' };
@@ -58,6 +59,11 @@ const int failure = 0;
 
 
 int main(void)
+{
+	startTicTacToe();
+}
+
+void startTicTacToe(void)
 {
 	startInterface();
 	showRule();
@@ -410,6 +416,8 @@ void showBoard(char game_board[])
 void showRule(void)
 {
 	char more_rule[10];
+	int is_input_yes;
+	
 	printf("\tWelcome to the most played 2D game and a sort of fun using X and O\n\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
@@ -422,7 +430,9 @@ void showRule(void)
 
 	printf("\tFor more clarifications press Y else type any other character: ");
 	scanf("%[^\n]s", more_rule);
-	if (strcmp(more_rule, "y") == 0 || strcmp(more_rule, "Y") == 0)
+	
+	is_input_yes = isRightInput(more_rule, "Y", "y");
+	if (is_input_yes)
 	{
 		system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
 	}
