@@ -150,9 +150,9 @@ void showBoard(char game_board[])
 
 	system("cls");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-	printf("〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
+	printf("==========================\n");
 	printf("\tTic-Tac-Toe \n");
-	printf("〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
+	printf("==========================\n");
 	
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
 	if (strcmp(player1.name, "\0") == 0)
@@ -165,67 +165,66 @@ void showBoard(char game_board[])
 	}
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("■■■■■■■■■■■■■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■");
+	printf("==========================\n");
+	printf("||      ||      ||      ||\n");
+	printf("||      ||      ||      ||\n");
+	printf("||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[0]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■");
+	printf("  ||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[1]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■");
+	printf("  ||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[2]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■\n");
+	printf("  ||\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("■      ■      ■      ■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■■■■■■■■■■■■■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■");
+	printf("||      ||      ||      ||\n");
+	printf("||      ||      ||      ||\n");
+	printf("==========================\n");
+	printf("||      ||      ||      ||\n");
+	printf("||      ||      ||      ||\n");
+	printf("||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[3]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■");
+	printf("  ||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[4]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■");
+	printf("  ||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[5]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■\n");
+	printf("  ||\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("■      ■      ■      ■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■■■■■■■■■■■■■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■");
+	printf("||      ||      ||      ||\n");
+	printf("||      ||      ||      ||\n");
+	printf("==========================\n");
+	printf("||      ||      ||      ||\n");
+	printf("||      ||      ||      ||\n");
+	printf("||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[6]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■");
+	printf("  ||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[7]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■");
+	printf("  ||");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("   %c", game_board[8]);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("  ■\n");
+	printf("  ||\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	printf("■      ■      ■      ■\n");
-	printf("■      ■      ■      ■\n");
-	printf("■■■■■■■■■■■■■\n\n");
-
+	printf("||      ||      ||      ||\n");
+	printf("||      ||      ||      ||\n");
+	printf("==========================\n");
 }
 
 int checkSomeoneWin(char game_board[])
@@ -274,7 +273,7 @@ void showResult(int game_state, int current_player)
 		if (current_player == player2_turn)
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-			printf("\n★★★★★ %s Wins ★★★★★\n\n", player1.name);
+			printf("\n******* %s Wins *******\n\n", player1.name);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			fprintf(leaderboard, "%s\n", player1.name);
 		}
@@ -282,7 +281,7 @@ void showResult(int game_state, int current_player)
 		else
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-			printf("\n★★★★★ %s Wins ★★★★★\n\n", player2.name);
+			printf("\n******* %s Wins *******\n\n", player2.name);
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			fprintf(leaderboard, "%s\n", player2.name);
 		}
@@ -291,7 +290,7 @@ void showResult(int game_state, int current_player)
 	else
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-		printf("\n★★★Game Draws!★★★\n\n");
+		printf("\n*****Game Draws!*****\n\n");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 		fprintf(leaderboard, "%s\n", "DRAW");
 	}

@@ -67,7 +67,7 @@ void startInterface(void)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	printf("\t - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n");
 
-	printf("\n\n\n\t☆★☆★☆★☆★☆★☆★☆Game Rule☆★☆★☆★☆★☆★☆★☆\n\n");
+	printf("\n\n\n\t*****************Game Rule*****************\n\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
 
@@ -83,7 +83,7 @@ void chooseMenu(void)
 	char menu_option[10];
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-	printf("\n\t〓〓〓〓〓〓MENU〓〓〓〓〓〓");
+	printf("\n\t==========MENU===========");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 
 	while (menu_input == incorrect)
