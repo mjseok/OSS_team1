@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "declaration.h"
 #include "leaderboard.h"
+#include "ui.h"
 #pragma warning (disable:4996)
 
 void showLeaderBoard(void)
