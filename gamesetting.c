@@ -4,6 +4,13 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
+extern const int player1_turn;
+extern const int player2_turn;
+extern const int success;
+extern const int failure;
+extern Player_Info player1;
+extern Player_Info player2;
+
 char checkSymbol(int current_player) 
 {
 	if (current_player == player1_turn)

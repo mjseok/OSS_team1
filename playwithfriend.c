@@ -6,6 +6,11 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
+extern const int success;
+extern const int failure;
+extern Player_Info player1;
+extern Player_Info player2;
+
 void playWithFriend(void) 
 {
 	const int keepGoing = 0;

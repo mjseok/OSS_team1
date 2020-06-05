@@ -6,6 +6,12 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
+extern const int player2_turn;
+extern const int success;
+extern const int failure;
+extern Player_Info player1;
+extern Player_Info player2;
+
 int checkHorizontal(char game_board[])
 {
 	if (isIndexValueSame(game_board, 0, 1, 2))

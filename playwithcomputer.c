@@ -6,6 +6,10 @@
 #include "gamesetting.h"
 #pragma warning (disable:4996)
 
+extern const int player1_turn;
+extern Player_Info player1;
+extern Player_Info player2;
+
 int checkValueOnComputer(char game_board[], int index1, int index2, int index3, char symbol)
 {
 	if (game_board[index1] == symbol && game_board[index2] == symbol)
