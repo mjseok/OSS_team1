@@ -72,11 +72,13 @@ void startInterface(void)
 }
 
 void chooseMenu(void)
-{
+{	
+	/* 플레이어에게 입력받은 Menu Option과 비교하는 상수 */
 	const char* GOTO_TWO_PLAYER_GAME = "1";
 	const char* GOTO_COMPUTER_GAME = "2";
 	const char* GOTO_LEADERBOARD = "3";
 	const char* QUIT_GAME = "4";
+
 	const int CORRECT = 1;
 	const int INCORRECT = 0;
 	int menu_input = INCORRECT;

@@ -11,6 +11,7 @@ void showLeaderBoard(void)
 	char player1_name[11] = "\0";
 	char player2_name[11] = "\0";
 	char result[11] = "\0";
+	/* 리더보드의 일관적인 출력을 위해, 기준이 되는 tab의 길이를  상수 선언 */
 	const int TAB_SIZE = 8;
 	
 	system("cls");

@@ -64,7 +64,7 @@ void chooseSymbol(void)
 		}
 	}
 }
-
+/* 대문자, 소문자 모두 입력을 허락함  */
 int isRightInput(char* player_symbol, char* capital_letter, char* small_letter)
 {
 	int string_same;
@@ -104,7 +104,7 @@ int setSymbol(char* player1_symbol)
 	return FAILURE;
 
 }
-
+/*플레이어가 번갈아 가며 게임을 진행한다.*/
 int changePlayer(int current_player)
 {
 	if (current_player == PLAYER1_TURN)

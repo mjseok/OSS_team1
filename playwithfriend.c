@@ -35,7 +35,7 @@ void playWithFriend(void)
 	}
 	showResult(game_state, current_player);
 }
-
+/* 이름을 10글자로 제한했으므로 이를 만족하는지 확인하는 함수 */
 int checkLongName(void) 
 {
 	const int MAX_LENGTH = 10;

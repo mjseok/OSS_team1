@@ -21,7 +21,7 @@ int checkValueOnComputer(char game_board[], int index1, int index2, int index3, 
 	}
 	return 0;
 }
-
+/* 가로, 세로, 대각선을 완성시킬 수 있는 index를 찾아 반환하는 함수 */
 int checkCaseOnComputer(char game_board[], int index1, int index2, int index3, char symbol)
 {
 	int proper_index = 0;
@@ -62,11 +62,12 @@ int findBlankForComputer(char game_board[], char computer_symbol, char player_sy
 
 int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 {
+	/* 보드에서 가로, 세로, 대각선이 완성되는 index의 집합 */
 	int winning_case[8][3] = { { 0, 1, 2 },{ 3, 4, 5 },{ 6, 7, 8 },{ 0, 3, 6 },{ 1, 4, 7 },{ 2, 5, 8 },{ 0, 4, 8 },{ 2, 4, 6 } };
 	int final_index = 0;
 	int i;
 
-	//Find the case that the computer wins
+	/* 컴퓨터가 이기는 경우의 index값 찾기 */
 	for (i = 0; i < 8; i++)
 	{
 		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], computer_symbol);
@@ -76,7 +77,7 @@ int checkComputer(char game_board[], char computer_symbol, char player_symbol)
 		}
 	}
 
-	//Find the case that computer loses
+	/* 컴퓨터가 지는 경우의 index값 찾기 */
 	for (i = 0; i < 8; i++)
 	{
 		final_index = checkCaseOnComputer(game_board, winning_case[i][0], winning_case[i][1], winning_case[i][2], player_symbol);
@@ -120,7 +121,7 @@ void playWithComputer(void)
 		}
 
 		else
-		{
+		{	/* computer: computer가 보드에 놓을 기호의 최적의 위치 */
 			computer = checkComputer(board_symbol, computer_symbol, player_symbol);
 			if (computer == ANYWHERE)
 			{
