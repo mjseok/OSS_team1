@@ -104,7 +104,7 @@ int setSymbol(char* player1_symbol)
 	return FAILURE;
 
 }
-/*플레이어가 번갈아 가며 게임을 진행한다.*/
+/* 플레이어가 번갈아 가며 게임을 진행한다 */
 int changePlayer(int current_player)
 {
 	if (current_player == PLAYER1_TURN)

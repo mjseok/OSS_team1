@@ -12,7 +12,7 @@ extern const int FAILURE;
 extern Player_Info player1;
 extern Player_Info player2;
 
-/* checkHorizontal, checkVertical, checkDiagonal, checkDraw의 반환값은 checkSomeOneWin 의 조건문에서 쓰인다.*/
+/* checkHorizontal, checkVertical, checkDiagonal, checkDraw의 반환값은 checkSomeOneWin 의 조건문에서 쓰인다 */
 int checkHorizontal(char game_board[])
 {
 	if (isIndexValueSame(game_board, 0, 1, 2))
